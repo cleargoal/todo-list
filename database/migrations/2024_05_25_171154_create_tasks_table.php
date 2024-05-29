@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\StatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +15,8 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('user_id')->index();
             $table->unsignedBigInteger('parent_id')->index()->nullable();
-            $table->string('status')->comment('todo, done');
-            $table->string('priority')->comment('1...5')->index();
+            $table->string('status')->default(StatusEnum::TODO);
+            $table->string('priority')->default(\App\Enums\PriorityEnum::MID)->index();
             $table->string('title');
             $table->string('description');
             $table->timestamp('created_at');
