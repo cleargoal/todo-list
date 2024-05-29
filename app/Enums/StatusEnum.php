@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum StatusEnum: string
 {
-    case TODO = 'ToDo';
+    case TODO = 'todo';
     case DONE = 'done';
 }
