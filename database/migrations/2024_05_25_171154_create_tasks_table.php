@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('status')->default(StatusEnum::TODO);
             $table->string('priority')->default(\App\Enums\PriorityEnum::MID)->index();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamp('created_at');
             $table->timestamp('completed_at')->nullable();
         });
