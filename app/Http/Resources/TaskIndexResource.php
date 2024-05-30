@@ -14,6 +14,13 @@ class TaskIndexResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'status' => $this->status,
+            'priority' => $this->priority,
+            'created' => $this->created_at,
+            'completed' => $this->completed_at ? 'yes' : 'no',
+        ];
     }
 }
