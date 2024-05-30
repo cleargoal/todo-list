@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
+use Illuminate\Http\JsonResponse;
 
 class TaskController extends Controller
 {
@@ -27,9 +29,9 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Task $task)
+    public function show(Task $task): TaskShowResource
     {
-        //
+        return new TaskShowResource($task);
     }
 
     /**
