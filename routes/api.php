@@ -1,8 +1,8 @@
 <?php
 
-use App\Models\Task;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['cors', 'api',])->group(function () {
-    Route::apiResource('/task', Task::class);
+Route::middleware(['api',])->group(function () {
+    Route::apiResource('/tasks', TaskController::class);
 });
