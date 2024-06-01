@@ -5,6 +5,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>DrumsAPI Documentation</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('images/scribe.png')}}">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
@@ -45,12 +46,12 @@
     </span>
 </a>
 <div class="tocify-wrapper">
-    
+
             <div class="lang-selector">
                                             <button type="button" class="lang-button" data-language-name="bash">bash</button>
                                             <button type="button" class="lang-button" data-language-name="javascript">javascript</button>
                     </div>
-    
+
     <div class="search">
         <input type="text" class="search" id="input-search" placeholder="Search">
     </div>
@@ -109,7 +110,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: May 30, 2024</li>
+        <li>Last updated: May 31, 2024</li>
     </ul>
 </div>
 
@@ -129,7 +130,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
         <h1 id="endpoints">Endpoints</h1>
 
-    
+
 
                                 <h2 id="endpoints-POSTapi-register">Register a new user.</h2>
 
@@ -148,9 +149,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"cvgygdsijcisbvvbpgkomsh\",
-    \"email\": \"rosario49@example.org\",
-    \"password\": \"&gt;dk&lt;e\\/cL}:^;F)%\"
+    \"name\": \"sdb\",
+    \"email\": \"constantin69@example.net\",
+    \"password\": \"v^M0}@)\\\"\"
 }"
 </code></pre></div>
 
@@ -166,9 +167,9 @@ const headers = {
 };
 
 let body = {
-    "name": "cvgygdsijcisbvvbpgkomsh",
-    "email": "rosario49@example.org",
-    "password": "&gt;dk&lt;e\/cL}:^;F)%"
+    "name": "sdb",
+    "email": "constantin69@example.net",
+    "password": "v^M0}@)\""
 };
 
 fetch(url, {
@@ -257,10 +258,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="cvgygdsijcisbvvbpgkomsh"
+               value="sdb"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>cvgygdsijcisbvvbpgkomsh</code></p>
+<p>Must not be greater than 255 characters. Example: <code>sdb</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -268,10 +269,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="rosario49@example.org"
+               value="constantin69@example.net"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>rosario49@example.org</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>constantin69@example.net</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -279,10 +280,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-register"
-               value=">dk<e/cL}:^;F)%"
+               value="v^M0}@)""
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>&gt;dk&lt;e/cL}:^;F)%</code></p>
+<p>Must be at least 8 characters. Example: <code>v^M0}@)"</code></p>
         </div>
         </form>
 
@@ -303,8 +304,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"jacobson.justus@example.net\",
-    \"password\": \"{Vb+*4r#0+j\\\"\"
+    \"email\": \"tward@example.net\",
+    \"password\": \"C&gt;h(4^fV\"
 }"
 </code></pre></div>
 
@@ -320,8 +321,8 @@ const headers = {
 };
 
 let body = {
-    "email": "jacobson.justus@example.net",
-    "password": "{Vb+*4r#0+j\""
+    "email": "tward@example.net",
+    "password": "C&gt;h(4^fV"
 };
 
 fetch(url, {
@@ -410,10 +411,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="jacobson.justus@example.net"
+               value="tward@example.net"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>jacobson.justus@example.net</code></p>
+<p>Must be a valid email address. Example: <code>tward@example.net</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -421,10 +422,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="{Vb+*4r#0+j""
+               value="C>h(4^fV"
                data-component="body">
     <br>
-<p>Example: <code>{Vb+*4r#0+j"</code></p>
+<p>Example: <code>C&gt;h(4^fV</code></p>
         </div>
         </form>
 
@@ -1272,9 +1273,9 @@ You can check the Dev Tools console for debugging information.</code></pre>
             </div>
                     </form>
 
-            
 
-        
+
+
     </div>
     <div class="dark-box">
                     <div class="lang-selector">
