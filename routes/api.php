@@ -11,5 +11,8 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 Route::middleware('auth:sanctum')->get('/auth-user', [AuthController::class, 'authUser']);
 
 Route::middleware(['api','auth:sanctum',])->group(function () {
-    Route::apiResource('/tasks', TaskController::class);
+    Route::apiResource('/tasks', TaskController::class)
+        ->missing(function (Request $request) {
+        return response()->json('Record not found.', 404);
+    });
 });
