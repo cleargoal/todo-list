@@ -33,6 +33,8 @@
 6. In the fields below enter email and password:
    1. You can use email from DB table 'users';
    2. The Password of any user is 'password' for simple testing.
+   3. Remember, that the access token is valid for 60 minutes. After that, you need to authenticate anew.
+   4. If you feel that you have too many access tokens, you can prune the table by running the command `sail artisan sanctum:prune-expired --hours=24` that removes all old (expired) tokens.
 7. When logged in, you'll see the Bearer token in the right panel. Use this one for authorizing any other endpoints.
 8. For example, you want to see some 'task'. Click 'Display the specified resource' and fill fields:
    1. <u>Authorization</u> in format 'Bearer ' + token from previous point. 
