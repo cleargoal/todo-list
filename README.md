@@ -19,7 +19,23 @@
       1. if you have configured 'sail' command alias in your '.bashrc', you can run `sail up -d`
       2. otherwise run `./vendor/bin/sail up -d`
    3. **run** migrations and seeders accordingly to previous containers start command `./vendor/bin/sail artisan migrate --seed` or `sail artisan migrate --seed`
-4. 
+3. 
 
 ## Using API
 
+
+## Use documentation
+1. 'Scribe' package have been used for creating API documentation.
+2. If needed, you can regenerate it by running command `sail artisan scribe:generate`
+3. Documentation is at the URL http://localhost:8008/docs
+4. First, you need to authorize user by picking 'Login user and create token' point.
+5. Then, click 'Try it out' button
+6. In the fields below enter email and password:
+   1. You can use email from DB table 'users';
+   2. The Password of any user is 'password' for simple testing.
+7. When logged in, you'll see the Bearer token in the right panel. Use this one for authorizing any other endpoints.
+8. For example, you want to see some 'task'. Click 'Display the specified resource' and fill fields:
+   1. <u>Authorization</u> in format 'Bearer ' + token from previous point. 
+   2. Don't touch other headers
+   3. Enter <u>ID</u> you want.
+9. Then hit the green button 'Send request'. See the result in the right panel.
