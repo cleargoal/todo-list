@@ -12,9 +12,16 @@ Route::middleware(['auth:sanctum',])->group(function () {
     Route::get('/auth-user', [AuthController::class, 'authUser']);
 });
 
-Route::middleware(['api', 'auth:sanctum',])->group(function () {
-    Route::apiResource('/tasks', TaskController::class)
-        ->missing(function (Request $request) {
-            return response()->json('Record not found.', 404);
-        });
+$missingTaskHandler = function (Request $request) {
+    return response()->json([
+        'message' => 'Task not found.'
+    ], 404);
+};
+
+Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHandler) {
+    Route::get('/tasks', [TaskController::class, 'index']);
+    Route::get('/tasks/{task}', [TaskController::class, 'show'])->missing($missingTaskHandler)->middleware('can:view,task');
+    Route::post('/tasks', [TaskController::class, 'store']);
+    Route::put('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->missing($missingTaskHandler)->middleware('can:delete,task');
 });
