@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRegisterRequest;
+use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,7 +16,7 @@ class AuthController extends Controller
     /**
      * Register a new user.
      */
-    public function register(UserRegisterRequest $request): JsonResponse
+    public function register(RegisterUserRequest $request): JsonResponse
     {
         $user = User::create([
             'name' => $request->name,
