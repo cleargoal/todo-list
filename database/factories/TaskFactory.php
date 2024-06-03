@@ -20,17 +20,16 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-        $created = Carbon::now()->addDays(rand(-90, -15));
         $status = $this->faker->randomElement(StatusEnum::cases());
         return [
-            'user_id' => rand(1,5),
+            'user_id' => rand(1,6),
             'parent_id' => Arr::random([null, rand(1,5), rand(3,9), rand(8,20), rand(9,25), rand(11,40)]),
             'status' => $status,
             'priority' => $this->faker->randomElement(PriorityEnum::cases()),
             'title' => $this->faker->realText(100, 3),
             'description' => $this->faker->realText(1000, 3),
-            'created_at' => $created,
-            'completed_at' => $status->value === 'done' ? $this->faker->dateTimeThisMonth() : null,
+            'created_at' => $this->faker->dateTimeBetween('-5 months', '-2 weeks'),
+            'completed_at' => $status->value === 'done' ? $this->faker->dateTimeBetween('-2 weeks', '-1 day') : null,
         ];
     }
 }
