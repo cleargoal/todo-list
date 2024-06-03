@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\PriorityEnum;
+use App\Enums\StatusEnum;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -23,8 +26,8 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => 'sometimes|string|max:5',
-            'priority' => 'sometimes|string|max:1',
+            'status' => [Rule::enum(StatusEnum::class), 'sometimes'],
+            'priority' => [Rule::enum(PriorityEnum::class), 'sometimes'],
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:10000',
         ];
