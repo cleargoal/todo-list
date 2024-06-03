@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('priority')->default(\App\Enums\PriorityEnum::MID)->index();
             $table->string('title');
             $table->text('description');
-            $table->timestamp('created_at');
+            $table->timestamps();
             $table->timestamp('completed_at')->nullable();
         });
     }
