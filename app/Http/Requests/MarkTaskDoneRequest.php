@@ -25,7 +25,7 @@ class MarkTaskDoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status' => StatusEnum::DONE,
+            'status' => ['required', Rule::in([StatusEnum::DONE])],
         ];
     }
 }
