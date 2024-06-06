@@ -28,6 +28,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'status' => [Rule::enum(StatusEnum::class), 'sometimes'],
             'priority' => [Rule::enum(PriorityEnum::class), 'sometimes'],
+            'parent_id' => 'sometimes|integer|min:0|exists:tasks,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:10000',
         ];
