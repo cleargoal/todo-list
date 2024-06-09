@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\TaskCreateDto;
+use App\Dto\TaskUpdateDto;
+use App\Enums\PriorityEnum;
+use App\Enums\StatusEnum;
 use App\Http\Requests\MarkTaskDoneRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
@@ -9,32 +13,46 @@ use App\Http\Resources\TaskIndexResource;
 use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
+use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
 
+    private TaskService $service;
+
+    public function __construct(TaskService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the tasks
-     * @param TaskRepository $repository
      * @return AnonymousResourceCollection
      */
-    public function index(TaskRepository $repository): AnonymousResourceCollection
+    public function index(): AnonymousResourceCollection
     {
-        return TaskIndexResource::collection($repository->getTasksByAuthor());
+        return TaskIndexResource::collection($this->service->getTasksByAuthor(request()->user()->id));
     }
 
     /**
      * Store a newly created Task in storage/DB
      * @param StoreTaskRequest $request
-     * @param TaskRepository $repository
      * @return TaskShowResource
      */
-    public function store(StoreTaskRequest $request, TaskRepository $repository): TaskShowResource
+    public function store(StoreTaskRequest $request): TaskShowResource
     {
-        return new TaskShowResource($repository->create($request->validated()));
+        $validated = $request->validated();
+        $taskDto = new TaskCreateDto(
+            $request->user()->id,
+            $validated['parent_id'],
+            $validated['title'],
+            $validated['description'],
+            StatusEnum::from($validated['status']),
+            PriorityEnum::from($validated['priority']),
+        );
+        return new TaskShowResource($this->service->create($taskDto));
     }
 
     /**
@@ -51,12 +69,18 @@ class TaskController extends Controller
      * Update the specified Task in DB
      * @param UpdateTaskRequest $request
      * @param Task $task
-     * @param TaskRepository $repository
      * @return JsonResponse|TaskShowResource
      */
-    public function update(UpdateTaskRequest $request, Task $task, TaskRepository $repository): JsonResponse|TaskShowResource
+    public function update(UpdateTaskRequest $request, Task $task): JsonResponse|TaskShowResource
     {
-        return new TaskShowResource($repository->update($task, $request->validated()));
+        $validated = $request->validated();
+        $taskDto = new TaskUpdateDto(
+            $validated['parent_id'] ?? null,
+            $validated['title'] ?? null,
+            $validated['description'] ?? null,
+            PriorityEnum::from($validated['priority']) ?? null,
+        );
+        return new TaskShowResource($this->service->update($task, $taskDto));
     }
 
     /**
@@ -65,9 +89,9 @@ class TaskController extends Controller
      * @param TaskRepository $repository
      * @return JsonResponse
      */
-    public function destroy(Task $task, TaskRepository $repository): JsonResponse
+    public function destroy(Task $task): JsonResponse
     {
-        return response()->json($repository->delete($task));
+        return response()->json($this->service->delete($task));
     }
 
     /**
@@ -85,10 +109,17 @@ class TaskController extends Controller
     /**
      * Get tasks collection by filters
      * @param
+     * @queryParam filter[language] Filter the books to a specific language. filter[language]=en
+     * @queryParam filter[pages] Filter the books to those with a certain amount of pages. filter[pages]=1000
+     * @queryParam filter[published_at] Filter the books to those published on a certain date. filter[published_at]=12-12-1992
      */
     public function getFilteredCollection($filters)
     {
 
     }
 
+    public function getUserTaskTree(Task $task)
+    {
+        return response()->json($this->service->getTaskTree($task->id));
+    }
 }
