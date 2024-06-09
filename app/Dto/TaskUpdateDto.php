@@ -4,13 +4,13 @@ namespace App\Dto;
 
 use App\Enums\PriorityEnum;
 
-class TaskUpdateDto
+readonly class TaskUpdateDto
 {
     public function __construct(
-        public readonly ?int $parent_id,
-        public readonly ?string $title,
-        public readonly ?string $description,
-        public readonly ?PriorityEnum $priority,
+        public ?int          $parent_id,
+        public ?string       $title,
+        public ?string       $description,
+        public ?PriorityEnum $priority,
     ) {
     }
 

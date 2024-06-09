@@ -5,15 +5,15 @@ namespace App\Dto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 
-class TaskCreateDto
+readonly class TaskCreateDto
 {
     public function __construct(
-        public readonly int $user_id,
-        public readonly int $parent_id,
-        public readonly string $title,
-        public readonly string $description,
-        public readonly StatusEnum $status,
-        public readonly PriorityEnum $priority,
+        public int          $user_id,
+        public int          $parent_id,
+        public string       $title,
+        public string       $description,
+        public StatusEnum   $status,
+        public PriorityEnum $priority,
     ) {
     }
 
