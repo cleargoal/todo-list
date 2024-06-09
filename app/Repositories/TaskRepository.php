@@ -1,68 +1,76 @@
 <?php
 
 namespace App\Repositories;
+use App\Dto\TaskCreateDto;
+use App\Dto\TaskUpdateDto;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class TaskRepository
 {
-
-    protected Task $model;
-
-    public function __construct()
-    {
-    }
-
     /**
      * All user's tasks
+     * @param int $userId
      * @return mixed
      */
-    public function getTasksByAuthor(): mixed
+    public function getTasksByAuthor(int $userId): mixed
     {
-        return Task::where('user_id', auth()->user()->id)->get();
+        return Task::where('user_id', $userId)->get();
     }
 
     /**
      * Create Task
-     * @param
+     * @param TaskCreateDto $data
      * @return Task
      */
-    public function create($data): Task
+    public function create(TaskCreateDto $data): Task
     {
-        Log::info($data);
-        $this->model = new Task();
-        $this->model->fill($data);
-        $this->model->user_id = auth()->user()->id;
-        $this->model->created_at = Carbon::now();
-        $this->model->save();
+        $model = new Task();
+        $model->user_id = $data->user_id;
+        $model->parent_id = $data->parent_id;
+        $model->title = $data->title;
+        $model->description = $data->description;
+        $model->status = $data->status;
+        $model->priority = $data->priority;
 
-        return $this->model->fresh();
+        $model->save();
+        return $model->fresh();
     }
 
     /**
      * Update task
-     * @param $model
-     * @param $data
+     * @param Task $model
+     * @param TaskUpdateDto $data
      * @return Task
      */
-    public function update($model, $data): Task
+    public function update(Task $model, TaskUpdateDto $data): Task
     {
-        $this->model = $model;
-        $this->model->fill($data);
-        $this->model->save();
-        return $this->model;
+        $model->parent_id = $data->parent_id ?? $model->parent_id;
+        $model->title = $data->title ?? $model->title;
+        $model->description = $data->description ?? $model->description;
+        $model->priority = $data->priority ?? $model->priority;
+
+        $model->save();
+        return $model->fresh();
     }
 
     /**
      * Delete task
-     * @param
-     * @return array
+     * @param Task $model
+     * @return bool
      */
-    public function delete($model): array
+    public function delete(Task $model): bool
     {
-        $this->model = $model;
-        return $this->model->delete() ? ['message' => 'Delete successful!', 200] : ['Unsuccessful', 404];
+        return $model->delete();
+    }
+
+    /**
+     * Get tree structure
+     */
+    public function getTree(Task $task)
+    {
+        $structure = Task::where()->get();
     }
 
 }
