@@ -17,7 +17,7 @@ class TaskCreateDto
     ) {
     }
 
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): TaskCreateDto
     {
         return new self(
             user_id: $data['user_id'],
