@@ -25,10 +25,10 @@ class UpdateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'parent_id' => 'sometimes|integer|exclude',
-            'title' => 'sometimes|string|max:255|required_without_all:priority,status,description',
-            'description' => 'sometimes|string|max:10000|required_without_all:priority,title,status',
-            'priority' => [Rule::enum(PriorityEnum::class), 'sometimes', 'required_without_all:status,title,description'],
+            'parent_id' => 'sometimes|nullable|integer|required_without_all:priority,description,title',
+            'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,parent_id',
+            'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,parent_id',
+            'priority' => [Rule::enum(PriorityEnum::class), 'sometimes', 'nullable', 'required_without_all:title,description,parent_id'],
         ];
     }
 }
