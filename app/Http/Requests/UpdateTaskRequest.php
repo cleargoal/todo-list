@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use App\Enums\PriorityEnum;
-use App\Enums\StatusEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
