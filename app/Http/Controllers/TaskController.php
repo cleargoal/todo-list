@@ -6,13 +6,11 @@ use App\Dto\TaskCreateDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
-use App\Http\Requests\MarkTaskDoneRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
 use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
-use App\Repositories\TaskRepository;
 use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -86,7 +84,6 @@ class TaskController extends Controller
     /**
      * Remove the specified Task from DB
      * @param Task $task
-     * @param TaskRepository $repository
      * @return JsonResponse
      */
     public function destroy(Task $task): JsonResponse
@@ -96,14 +93,16 @@ class TaskController extends Controller
 
     /**
      * Mark Task as 'done'
-     * @param MarkTaskDoneRequest $request
      * @param Task $task
-     * @param TaskRepository $repository
-     * @return TaskShowResource
+     * @return TaskShowResource|JsonResponse
      */
-    public function markTaskDone(MarkTaskDoneRequest $request, Task $task, TaskRepository $repository): TaskShowResource
+    public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
-        return new TaskShowResource($repository->update($task, $request->validated()));
+        $response = $this->service->markTaskDone($task);
+        if (gettype($response) === 'array') {
+            return response()->json($response);
+        }
+        return new TaskShowResource($response);
     }
 
     /**
@@ -118,7 +117,12 @@ class TaskController extends Controller
 
     }
 
-    public function getUserTaskTree(Task $task)
+    /**
+     * Get the tree of one of user's task by ID
+     * @param Task $task
+     * @return JsonResponse
+     */
+    public function getUserTaskTree(Task $task): JsonResponse
     {
         return response()->json($this->service->getTaskTree($task->id));
     }

@@ -1,6 +1,6 @@
 # Introduction
 
-
+The simple Laravel API for the authenticated ToDo list
 
 <aside>
     <strong>Base URL</strong>: <code>http://localhost:8008</code>

@@ -3,9 +3,8 @@
 namespace App\Repositories;
 use App\Dto\TaskCreateDto;
 use App\Dto\TaskUpdateDto;
+use App\Enums\StatusEnum;
 use App\Models\Task;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 class TaskRepository
 {
@@ -66,11 +65,35 @@ class TaskRepository
     }
 
     /**
-     * Get tree structure
+     * Get tree structure of specified task
+     * @param $taskId
+     * @return mixed
      */
-    public function getTree(Task $task)
+    public function getTree($taskId): mixed
     {
-        $structure = Task::where()->get();
+        return Task::where('id', $taskId)->with('children')->get();
+    }
+
+    /**
+     * Get tree structure of specified task without root (parent)
+     * @param $taskId
+     * @return mixed
+     */
+    public function getDescendants($taskId): mixed
+    {
+        return Task::where('parent_id', $taskId)->with('children')->get();
+    }
+
+    /**
+     * set task status 'done
+     * @param Task $task
+     * @return Task|null
+     */
+    public function setTaskStatusDone(Task $task): ?Task
+    {
+        $task->status = StatusEnum::DONE;
+        $task->save();
+        return $task->fresh();
     }
 
 }
