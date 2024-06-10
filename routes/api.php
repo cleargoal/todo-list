@@ -26,4 +26,5 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHa
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->missing($missingTaskHandler)->middleware('can:delete,task');
     Route::put('/tasks/done/{task}', [TaskController::class, 'markTaskDone'])->missing($missingTaskHandler)->middleware('can:update,task');
+    Route::get('/tasks/tree/{task}', [TaskController::class, 'getUserTaskTree']);
 });
