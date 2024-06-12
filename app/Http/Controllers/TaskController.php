@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Dto\TaskCreateDto;
+use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
+use App\Http\Requests\FiltersTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
@@ -13,7 +15,10 @@ use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
 use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -107,14 +112,29 @@ class TaskController extends Controller
 
     /**
      * Get tasks collection by filters
-     * @param
-     * @queryParam filter[language] Filter the books to a specific language. filter[language]=en
-     * @queryParam filter[pages] Filter the books to those with a certain amount of pages. filter[pages]=1000
-     * @queryParam filter[published_at] Filter the books to those published on a certain date. filter[published_at]=12-12-1992
+     * @param FiltersTaskRequest $request
+     * @queryParam title string Filter the tasks by a specific part of title. filter[title]. Example: something
+     * @queryParam description string Filter the tasks by a specific part of description. filter[description]. Example: good
+     * @queryParam priority int Filter the tasks by a specific part of priority. filter[priority]. Example: 4
+     * @queryParam status string Filter the tasks by a specific part of status. filter[status]. Example: todo
+     * @return AnonymousResourceCollection
      */
-    public function getFilteredCollection($filters)
+    public function getFilteredCollection(Request $request): AnonymousResourceCollection
     {
+        $validated = $request->validate([
+            'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,status',
+            'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,status',
+            'priority' => ['sometimes', 'nullable', 'int', Rule::enum(PriorityEnum::class), 'required_without_all:title,description,status'],
+            'status' => ['sometimes', 'nullable', Rule::enum(StatusEnum::class), 'required_without_all:title,description,priority'],
+        ]);
 
+        $taskDto = new TaskFiltersDto(
+            $request->query('title') ?? null,
+            $request->query('description') ?? null,
+                $request->query('priority') ? PriorityEnum::from($request->query('priority')) : null,
+                $request->query('status') ? StatusEnum::from($request->query('status')) : null,
+        );
+        return TaskIndexResource::collection($this->service->getFiltered(request()->user()->id, $taskDto));
     }
 
     /**
