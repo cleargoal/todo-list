@@ -7,7 +7,6 @@ use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
-use App\Http\Requests\FiltersTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
@@ -37,6 +36,16 @@ class TaskController extends Controller
     public function index(): AnonymousResourceCollection
     {
         return TaskIndexResource::collection($this->service->getTasksByAuthor(request()->user()->id));
+    }
+
+    /**
+     * Get the tree of one of user's task by ID
+     * @param Task $task
+     * @return JsonResponse
+     */
+    public function getUserTaskTree(Task $task): JsonResponse
+    {
+        return response()->json($this->service->getTaskTree($task->id));
     }
 
     /**
@@ -113,16 +122,16 @@ class TaskController extends Controller
     /**
      * Get tasks collection by filters
      * @param Request $request
-     * @queryParam title string Filter the tasks by a specific part of title. filter[title]. Example: something
-     * @queryParam description string Filter the tasks by a specific part of description. filter[description]. Example: good
-     * @queryParam priority int Filter the tasks by a specific part of priority. filter[priority]. Example: 4
-     * @queryParam status string Filter the tasks by a specific part of status. filter[status]. Example: todo
+     * @queryParam title string Filter the tasks by a specific part of title. Example: something
+     * @queryParam description string Filter the tasks by a specific part of description. Example: good
+     * @queryParam priority int Filter the tasks by a priority. Example: 4
+     * @queryParam status string Filter the tasks by a status. Example: todo
      * @return AnonymousResourceCollection
      */
     public function getFilteredCollection(Request $request): AnonymousResourceCollection
     {
         // Query parameters
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,status',
             'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,status',
             'priority' => ['sometimes', 'nullable', 'int', Rule::enum(PriorityEnum::class), 'required_without_all:title,description,status'],
@@ -139,12 +148,23 @@ class TaskController extends Controller
     }
 
     /**
-     * Get the tree of one of user's task by ID
-     * @param Task $task
-     * @return JsonResponse
+     * Sorting tasks
+     * @param Request $request
+     * @queryParam priority string Sorting the tasks by a priority. Example: desc
+     * @queryParam created_at string Filter the tasks by a created_at. Example: asc
+     * @queryParam completed_at string Filter the tasks by a completed_at. Example: asc
+     * @return AnonymousResourceCollection
      */
-    public function getUserTaskTree(Task $task): JsonResponse
+    public function gedSortedCollection(Request $request): AnonymousResourceCollection
     {
-        return response()->json($this->service->getTaskTree($task->id));
+        // Query parameters
+         $validated = $request->validate([
+            'priority' => 'sometimes|nullable|string|in:asc,desc|required_without_all:created_at,completed_at',
+            'created_at' => 'sometimes|nullable|string|in:asc,desc|required_without_all:priority, completed_at',
+            'completed_at' => 'sometimes|nullable|string|in:asc,desc|required_without_all:priority, created_at',
+        ]);
+
+        return TaskIndexResource::collection($this->service->getSorted(request()->user()->id, $validated));
     }
+
 }
