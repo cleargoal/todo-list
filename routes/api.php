@@ -21,8 +21,8 @@ $missingTaskHandler = function (Request $request) {
 Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHandler) {
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::get('/tasks/tree/{task}', [TaskController::class, 'getUserTaskTree'])->missing($missingTaskHandler)->middleware('can:view,task');
-    Route::get('/tasks/filtered', [TaskController::class, 'getFilteredCollection'])->middleware('can:view,task');
-    Route::get('/tasks/sorted', [TaskController::class, 'gedSortedCollection'])->middleware('can:view,task');
+    Route::get('/tasks/filtered', [TaskController::class, 'getFilteredCollection']);
+    Route::get('/tasks/sorted', [TaskController::class, 'gedSortedCollection']);
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->missing($missingTaskHandler)->middleware('can:view,task');
     Route::post('/tasks', [TaskController::class, 'store']);
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
