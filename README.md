@@ -39,3 +39,4 @@
    2. Don't touch other headers
    3. Enter <u>ID</u> you want.
 9. Then hit the green button 'Send request'. See the result in the right panel.
+10. Filtering and sorting are realized by separate end-points. These queries select data of authenticated user tasks only. 
