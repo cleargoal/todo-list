@@ -40,7 +40,7 @@ class TaskController extends Controller
     }
 
     /**
-     * Store a newly created Task in storage/DB
+     * Store a newly created Task in DB
      * @param StoreTaskRequest $request
      * @return TaskShowResource
      */
@@ -112,7 +112,7 @@ class TaskController extends Controller
 
     /**
      * Get tasks collection by filters
-     * @param FiltersTaskRequest $request
+     * @param Request $request
      * @queryParam title string Filter the tasks by a specific part of title. filter[title]. Example: something
      * @queryParam description string Filter the tasks by a specific part of description. filter[description]. Example: good
      * @queryParam priority int Filter the tasks by a specific part of priority. filter[priority]. Example: 4
@@ -121,6 +121,7 @@ class TaskController extends Controller
      */
     public function getFilteredCollection(Request $request): AnonymousResourceCollection
     {
+        // Query parameters
         $validated = $request->validate([
             'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,status',
             'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,status',
