@@ -137,11 +137,24 @@ class TaskService
 
     /**
      * Get filtered user's tasks
-     *
+     * @param int $userId
+     * @param TaskFiltersDto $filters
+     * @return Collection
      */
-    public function getFiltered(int $userId, TaskFiltersDto $filters)
+    public function getFiltered(int $userId, TaskFiltersDto $filters): Collection
     {
         return $this->repository->getFilteredTasks($userId, $filters);
+    }
+
+    /**
+     * Get sorted user's tasks
+     * @param int $userId
+     * @param array $parameters
+     * @return Collection
+     */
+    public function getSorted(int $userId, array $parameters): Collection
+    {
+        return $this->repository->getSortedTasks($userId, $parameters);
     }
 
 }
