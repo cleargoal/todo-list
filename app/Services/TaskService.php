@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Dto\TaskCreateDto;
+use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
@@ -132,6 +133,15 @@ class TaskService
         }
 
         return $check;
+    }
+
+    /**
+     * Get filtered user's tasks
+     *
+     */
+    public function getFiltered(int $userId, TaskFiltersDto $filters)
+    {
+        return $this->repository->getFilteredTasks($userId, $filters);
     }
 
 }
