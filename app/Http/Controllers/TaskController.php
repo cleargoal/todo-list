@@ -24,9 +24,8 @@ use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
-    public function __construct(private TaskService $service)
+    public function __construct(private readonly TaskService $service)
     {
-        $this->service = $service;
     }
 
     /**
