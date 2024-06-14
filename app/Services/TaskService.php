@@ -5,22 +5,19 @@ namespace App\Services;
 use App\Dto\TaskCreateDto;
 use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
-use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
-class TaskService
+readonly class TaskService
 {
 
     public function __construct(private TaskRepository $repository)
     {
-        $this->repository = $repository;
     }
 
     /**
@@ -59,6 +56,7 @@ class TaskService
      * Delete task
      * @param Task $task
      * @return true
+     * @throws TaskAlreadyDoneException|TaskDeletionException
      */
     public function delete(Task $task): true
     {
