@@ -25,7 +25,7 @@ Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHa
     Route::get('/tasks/sorted', [TaskController::class, 'getSortedCollection']);
     Route::get('/tasks/{task}', [TaskController::class, 'show'])->missing($missingTaskHandler)->middleware('can:view,task');
     Route::post('/tasks', [TaskController::class, 'store']);
-    Route::put('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
+    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->missing($missingTaskHandler)->middleware('can:delete,task');
     Route::patch('/tasks/done/{task}', [TaskController::class, 'markTaskDone'])->missing($missingTaskHandler)->middleware('can:update,task');
 });
