@@ -8,8 +8,8 @@ use App\Enums\StatusEnum;
 readonly class TaskCreateDto
 {
     public function __construct(
-        public int          $user_id,
-        public int          $parent_id,
+        public int          $userId,
+        public int          $parentId,
         public string       $title,
         public string       $description,
         public StatusEnum   $status,
@@ -20,8 +20,8 @@ readonly class TaskCreateDto
     public static function fromArray(array $data): TaskCreateDto
     {
         return new self(
-            user_id: $data['user_id'],
-            parent_id: $data['parent_id'],
+            userId: $data['user_id'],
+            parentId: $data['parent_id'],
             title: $data['title'],
             description: $data['description'],
             status: $data['status'],
