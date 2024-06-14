@@ -7,6 +7,7 @@ use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\StatusEnum;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 
@@ -29,16 +30,14 @@ class TaskRepository
      */
     public function create(TaskCreateDto $data): Task
     {
-        $model = new Task();
-        $model->user_id = $data->user_id;
-        $model->parent_id = $data->parent_id;
-        $model->title = $data->title;
-        $model->description = $data->description;
-        $model->status = $data->status;
-        $model->priority = $data->priority;
-
-        $model->save();
-        return $model->fresh();
+        return Task::create([
+            'user_id' => $data->userId,
+            'parent_id' => $data->parentId,
+            'title' => $data->title,
+            'description' => $data->description,
+            'status' => $data->status,
+            'priority' => $data->priority,
+        ]);
     }
 
     /**
@@ -49,13 +48,13 @@ class TaskRepository
      */
     public function update(Task $model, TaskUpdateDto $data): Task
     {
-        $model->parent_id = $data->parent_id ?? $model->parent_id;
-        $model->title = $data->title ?? $model->title;
-        $model->description = $data->description ?? $model->description;
-        $model->priority = $data->priority ?? $model->priority;
-
-        $model->save();
-        return $model->fresh();
+        $model->update([
+            $model->parent_id = $data->parent_id ?? $model->parent_id,
+            $model->title = $data->title ?? $model->title,
+            $model->description = $data->description ?? $model->description,
+            $model->priority = $data->priority ?? $model->priority,
+        ]);
+        return $model;
     }
 
     /**
@@ -95,9 +94,11 @@ class TaskRepository
      */
     public function setTaskStatusDone(Task $task): ?Task
     {
-        $task->status = StatusEnum::DONE;
-        $task->save();
-        return $task->fresh();
+        $task->update([
+            $task->status = StatusEnum::DONE,
+            $task->completed_at = Carbon::now(),
+        ]);
+        return $task;
     }
 
     /**
