@@ -155,7 +155,7 @@ class TaskController extends Controller
      * @queryParam completed_at string Filter the tasks by a completed_at. Example: asc
      * @return AnonymousResourceCollection
      */
-    public function gedSortedCollection(Request $request): AnonymousResourceCollection
+    public function getSortedCollection(Request $request): AnonymousResourceCollection
     {
         // Query parameters
          $validated = $request->validate([
