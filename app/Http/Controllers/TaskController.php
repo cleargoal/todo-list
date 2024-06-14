@@ -7,12 +7,15 @@ use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
+use App\Exceptions\TaskAlreadyDoneException;
+use App\Exceptions\TaskDeletionException;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
 use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
 use App\Services\TaskService;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -21,10 +24,7 @@ use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
-
-    private TaskService $service;
-
-    public function __construct(TaskService $service)
+    public function __construct(private TaskService $service)
     {
         $this->service = $service;
     }
@@ -35,7 +35,7 @@ class TaskController extends Controller
      */
     public function index(): AnonymousResourceCollection
     {
-        return TaskIndexResource::collection($this->service->getTasksByAuthor(request()->user()->id));
+        return TaskIndexResource::collection($this->service->getTasksByUserId(request()->user()->id));
     }
 
     /**
@@ -102,7 +102,16 @@ class TaskController extends Controller
      */
     public function destroy(Task $task): JsonResponse
     {
-        return response()->json($this->service->delete($task));
+        try {
+            $this->service->delete($task);
+            return response()->json(['message' => 'Delete successful!']);
+        } catch (TaskAlreadyDoneException $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        } catch (TaskDeletionException $e) {
+            return response()->json(['message' => $e->getMessage()], 409);
+        } catch (Exception $e) {
+            return response()->json(['message' => 'An unexpected error occurred.'], 500);
+        }
     }
 
     /**
@@ -112,11 +121,13 @@ class TaskController extends Controller
      */
     public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
-        $response = $this->service->markTaskDone($task);
-        if (gettype($response) === 'array') {
-            return response()->json($response);
+        try{
+            $response = $this->service->markTaskDone($task);
+            return new TaskShowResource($response);
         }
-        return new TaskShowResource($response);
+        catch(TaskAlreadyDoneException $e) {
+            return response()->json(['message' => $e->getMessage()], 400);
+        }
     }
 
     /**
