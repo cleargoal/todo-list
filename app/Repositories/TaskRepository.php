@@ -17,7 +17,7 @@ class TaskRepository
      * @param int $userId
      * @return mixed
      */
-    public function getTasksByAuthor(int $userId): mixed
+    public function getTasksByUserId(int $userId): mixed
     {
         return Task::where('user_id', $userId)->get();
     }

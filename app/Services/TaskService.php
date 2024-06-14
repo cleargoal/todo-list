@@ -7,6 +7,8 @@ use App\Dto\TaskFiltersDto;
 use App\Dto\TaskUpdateDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
+use App\Exceptions\TaskAlreadyDoneException;
+use App\Exceptions\TaskDeletionException;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Carbon\Carbon;
@@ -16,9 +18,7 @@ use Illuminate\Support\Facades\Log;
 class TaskService
 {
 
-    private TaskRepository $repository;
-
-    public function __construct(TaskRepository $repository)
+    public function __construct(private TaskRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -29,9 +29,9 @@ class TaskService
      * @param int $userId
      * @return mixed
      */
-    public function getTasksByAuthor(int $userId): mixed
+    public function getTasksByUserId(int $userId): mixed
     {
-        return $this->repository->getTasksByAuthor($userId);
+        return $this->repository->getTasksByUserId($userId);
     }
 
     /**
@@ -58,14 +58,19 @@ class TaskService
     /**
      * Delete task
      * @param Task $task
-     * @return array
+     * @return true
      */
-    public function delete(Task $task): array
+    public function delete(Task $task): true
     {
         if ($task->status === StatusEnum::DONE) {
-            return ['message' => 'Delete impossible! Task is done.', 200];
+            throw new TaskAlreadyDoneException();
         }
-        return $this->repository->delete($task) ? ['message' => 'Delete successful!', 200] : ['Unsuccessful', 404];
+
+        if (!$this->repository->delete($task)) {
+            throw new TaskDeletionException();
+        }
+
+        return true;
     }
 
     /**
@@ -96,9 +101,10 @@ class TaskService
     /**
      * Mark task as done
      * @param Task $task
-     * @return Task|array|Collection
+     * @return Task
+     * @throws TaskAlreadyDoneException
      */
-    public function markTaskDone(Task $task): Task|array|Collection
+    public function markTaskDone(Task $task): Task
     {
         $withChildren = $this->repository->getDescendants($task->id);
         $status = StatusEnum::TODO;
@@ -106,7 +112,7 @@ class TaskService
         $check = $this->checkChildren($withChildren, $status);
 
         if($check) {
-            return ['message' => 'Can\'t be marked done. The task has unfinished subtasks', 400];
+            throw new TaskAlreadyDoneException();
         }
 
         return $this->repository->setTaskStatusDone($task);
