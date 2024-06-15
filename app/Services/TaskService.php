@@ -8,6 +8,7 @@ use App\Dto\TaskUpdateDto;
 use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
+use App\Exceptions\TaskHasTodoChildrenException;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -100,17 +101,19 @@ readonly class TaskService
      * Mark task as done
      * @param Task $task
      * @return Task
-     * @throws TaskAlreadyDoneException
+     * @throws TaskAlreadyDoneException|TaskHasTodoChildrenException
      */
     public function markTaskDone(Task $task): Task
     {
+        if ($task->status === StatusEnum::DONE){
+            throw new TaskAlreadyDoneException();
+        }
         $withChildren = $this->repository->getDescendants($task->id);
         $status = StatusEnum::TODO;
 
         $check = $this->checkChildren($withChildren, $status);
-
         if($check) {
-            throw new TaskAlreadyDoneException();
+            throw new TaskHasTodoChildrenException();
         }
 
         return $this->repository->setTaskStatusDone($task);
