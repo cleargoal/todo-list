@@ -29,7 +29,7 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: hjtbysdlshuqvio
+        example: iataaninaxf
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -38,7 +38,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: block.abigayle@example.net
+        example: price.katlyn@example.org
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -47,22 +47,22 @@ endpoints:
         name: password
         description: 'Must be at least 8 characters.'
         required: true
-        example: ',cZ^?:57^I.^'
+        example: '0N_e#]X'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      name: hjtbysdlshuqvio
-      email: block.abigayle@example.net
-      password: ',cZ^?:57^I.^'
+      name: iataaninaxf
+      email: price.katlyn@example.org
+      password: '0N_e#]X'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer dPZVaDeg5E4fav8k16h6cb3'
+      - 'Bearer kZh6D8f3aEcP4vdgVe6b1a5'
     controller: null
     method: null
     route: null
@@ -93,7 +93,7 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: schuppe.pinkie@example.com
+        example: clementina.mcglynn@example.com
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -102,21 +102,21 @@ endpoints:
         name: password
         description: ''
         required: true
-        example: 'XcWR~~m<}r]l{z'
+        example: '3e.\#d;+X*BAEhFt!q'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      email: schuppe.pinkie@example.com
-      password: 'XcWR~~m<}r]l{z'
+      email: clementina.mcglynn@example.com
+      password: '3e.\#d;+X*BAEhFt!q'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer fhPed6a1b3Eka5v4ZV68gDc'
+      - 'Bearer 4Db3fa16vah65Pc8VdgkEeZ'
     controller: null
     method: null
     route: null
@@ -150,7 +150,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6ebPfZad3DcVgh8465a1Evk'
+      - 'Bearer b6Z1cVeakvEagfh83DdP564'
     controller: null
     method: null
     route: null
@@ -193,7 +193,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer kD8dgvaeP546f61cbV3hZEa'
+      - 'Bearer fgevc68D4531abVaZkPE6hd'
     controller: null
     method: null
     route: null
@@ -236,7 +236,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer dg3kaDEvZ41f8aV5b6h6ceP'
+      - 'Bearer 6faEeD3vhVk5PZag81d46bc'
     controller: null
     method: null
     route: null
@@ -289,7 +289,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer fbhe84v5a6kDP1VEd6cg3Za'
+      - 'Bearer V1hP3gDc84kvaZ6edEb5fa6'
     controller: null
     method: null
     route: null
@@ -372,7 +372,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 358vaP1hafgZc66eVDbE4kd'
+      - 'Bearer bDV6Efgav4Zhe6c1dk38aP5'
     controller: null
     method: null
     route: null
@@ -445,7 +445,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3a4DbcEfe68dZ61VaPhgv5k'
+      - 'Bearer EDadVbZf3ecg6184avPk6h5'
     controller: null
     method: null
     route: null
@@ -498,7 +498,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer dfaZ1keaVb3h6cPv4D5E68g'
+      - 'Bearer aE86Vk1e45hvPgcfDaZ6db3'
     controller: null
     method: null
     route: null
@@ -540,7 +540,7 @@ endpoints:
         name: priority
         description: ''
         required: false
-        example: '2'
+        example: '4'
         type: string
         enumValues:
           - '1'
@@ -554,7 +554,7 @@ endpoints:
         name: parent_id
         description: 'Must be at least 0.'
         required: false
-        example: 70
+        example: 0
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -563,7 +563,7 @@ endpoints:
         name: title
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: wzdgthmukzcijclldjh
+        example: jeipzuy
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -572,31 +572,31 @@ endpoints:
         name: description
         description: 'Must not be greater than 10000 characters.'
         required: true
-        example: 'Eum sit autem qui necessitatibus voluptatem voluptates sint.'
+        example: 'Magnam et accusantium dolores.'
         type: string
         enumValues: []
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
       status: done
-      priority: '2'
-      parent_id: 70
-      title: wzdgthmukzcijclldjh
-      description: 'Eum sit autem qui necessitatibus voluptatem voluptates sint.'
+      priority: '4'
+      parent_id: 0
+      title: jeipzuy
+      description: 'Magnam et accusantium dolores.'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer Zd1fabcegkavPE5D364h68V'
+      - 'Bearer 5cVDgka8be63hEvfa46dZP1'
     controller: null
     method: null
     route: null
     custom: []
   -
     httpMethods:
-      - PUT
+      - PATCH
     uri: 'api/tasks/{task_id}'
     metadata:
       groupName: Endpoints
@@ -630,7 +630,7 @@ endpoints:
         name: parent_id
         description: 'This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present.'
         required: false
-        example: 14
+        example: 5
         type: integer
         enumValues: []
         exampleWasSpecified: false
@@ -639,7 +639,7 @@ endpoints:
         name: title
         description: 'This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters.'
         required: false
-        example: tkcsbbagcidiatqicxxdjshf
+        example: zzxvmkpvaszkvu
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -648,7 +648,7 @@ endpoints:
         name: description
         description: 'This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters.'
         required: false
-        example: 'Possimus sunt omnis aspernatur commodi consequatur.'
+        example: 'Nulla aut tempora saepe velit a a.'
         type: string
         enumValues: []
         exampleWasSpecified: false
@@ -657,7 +657,7 @@ endpoints:
         name: priority
         description: 'This field is required when none of <code>title</code>, <code>description</code>, and <code>parent_id</code> are present.'
         required: false
-        example: '2'
+        example: '1'
         type: string
         enumValues:
           - '1'
@@ -668,17 +668,17 @@ endpoints:
         exampleWasSpecified: false
         custom: []
     cleanBodyParameters:
-      parent_id: 14
-      title: tkcsbbagcidiatqicxxdjshf
-      description: 'Possimus sunt omnis aspernatur commodi consequatur.'
-      priority: '2'
+      parent_id: 5
+      title: zzxvmkpvaszkvu
+      description: 'Nulla aut tempora saepe velit a a.'
+      priority: '1'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer h43VZP6kbavf5gE6a1eDd8c'
+      - 'Bearer 8c5dDZ64a63Eha1kfVegPbv'
     controller: null
     method: null
     route: null
@@ -722,7 +722,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer gbk46aZPaef56EVv31Dhcd8'
+      - 'Bearer 8kPc566aEVD1bhfa43veZdg'
     controller: null
     method: null
     route: null
@@ -766,7 +766,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer Vagve38cd6fD6khPb4Z5a1E'
+      - 'Bearer Pa6cV1eZg6habfvEkd3854D'
     controller: null
     method: null
     route: null

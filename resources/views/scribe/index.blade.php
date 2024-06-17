@@ -101,8 +101,8 @@
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-POSTapi-tasks">
                                 <a href="#endpoints-POSTapi-tasks">Store a newly created Task in DB</a>
                             </li>
-                                                                                <li class="tocify-item level-2" data-unique="endpoints-PUTapi-tasks--task_id-">
-                                <a href="#endpoints-PUTapi-tasks--task_id-">Update the specified Task in DB</a>
+                                                                                <li class="tocify-item level-2" data-unique="endpoints-PATCHapi-tasks--task_id-">
+                                <a href="#endpoints-PATCHapi-tasks--task_id-">Update the specified Task in DB</a>
                             </li>
                                                                                 <li class="tocify-item level-2" data-unique="endpoints-DELETEapi-tasks--task_id-">
                                 <a href="#endpoints-DELETEapi-tasks--task_id-">Remove the specified Task from DB</a>
@@ -121,7 +121,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 13, 2024</li>
+        <li>Last updated: June 14, 2024</li>
     </ul>
 </div>
 
@@ -165,9 +165,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"hjtbysdlshuqvio\",
-    \"email\": \"block.abigayle@example.net\",
-    \"password\": \",cZ^?:57^I.^\"
+    \"name\": \"iataaninaxf\",
+    \"email\": \"price.katlyn@example.org\",
+    \"password\": \"0N_e#]X\"
 }"
 </code></pre></div>
 
@@ -184,9 +184,9 @@ const headers = {
 };
 
 let body = {
-    "name": "hjtbysdlshuqvio",
-    "email": "block.abigayle@example.net",
-    "password": ",cZ^?:57^I.^"
+    "name": "iataaninaxf",
+    "email": "price.katlyn@example.org",
+    "password": "0N_e#]X"
 };
 
 fetch(url, {
@@ -286,10 +286,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="hjtbysdlshuqvio"
+               value="iataaninaxf"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>hjtbysdlshuqvio</code></p>
+<p>Must not be greater than 255 characters. Example: <code>iataaninaxf</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -297,10 +297,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="block.abigayle@example.net"
+               value="price.katlyn@example.org"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>block.abigayle@example.net</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>price.katlyn@example.org</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -308,10 +308,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-register"
-               value=",cZ^?:57^I.^"
+               value="0N_e#]X"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>,cZ^?:57^I.^</code></p>
+<p>Must be at least 8 characters. Example: <code>0N_e#]X</code></p>
         </div>
         </form>
 
@@ -334,8 +334,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"schuppe.pinkie@example.com\",
-    \"password\": \"XcWR~~m&lt;}r]l{z\"
+    \"email\": \"clementina.mcglynn@example.com\",
+    \"password\": \"3e.\\\\#d;+X*BAEhFt!q\"
 }"
 </code></pre></div>
 
@@ -352,8 +352,8 @@ const headers = {
 };
 
 let body = {
-    "email": "schuppe.pinkie@example.com",
-    "password": "XcWR~~m&lt;}r]l{z"
+    "email": "clementina.mcglynn@example.com",
+    "password": "3e.\\#d;+X*BAEhFt!q"
 };
 
 fetch(url, {
@@ -453,10 +453,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="schuppe.pinkie@example.com"
+               value="clementina.mcglynn@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>schuppe.pinkie@example.com</code></p>
+<p>Must be a valid email address. Example: <code>clementina.mcglynn@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -464,10 +464,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="XcWR~~m<}r]l{z"
+               value="3e.\#d;+X*BAEhFt!q"
                data-component="body">
     <br>
-<p>Example: <code>XcWR~~m&lt;}r]l{z</code></p>
+<p>Example: <code>3e.\#d;+X*BAEhFt!q</code></p>
         </div>
         </form>
 
@@ -1561,10 +1561,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Accept: application/json" \
     --data "{
     \"status\": \"done\",
-    \"priority\": \"2\",
-    \"parent_id\": 70,
-    \"title\": \"wzdgthmukzcijclldjh\",
-    \"description\": \"Eum sit autem qui necessitatibus voluptatem voluptates sint.\"
+    \"priority\": \"4\",
+    \"parent_id\": 0,
+    \"title\": \"jeipzuy\",
+    \"description\": \"Magnam et accusantium dolores.\"
 }"
 </code></pre></div>
 
@@ -1582,10 +1582,10 @@ const headers = {
 
 let body = {
     "status": "done",
-    "priority": "2",
-    "parent_id": 70,
-    "title": "wzdgthmukzcijclldjh",
-    "description": "Eum sit autem qui necessitatibus voluptatem voluptates sint."
+    "priority": "4",
+    "parent_id": 0,
+    "title": "jeipzuy",
+    "description": "Magnam et accusantium dolores."
 };
 
 fetch(url, {
@@ -1698,10 +1698,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="priority"                data-endpoint="POSTapi-tasks"
-               value="2"
+               value="4"
                data-component="body">
     <br>
-<p>Example: <code>2</code></p>
+<p>Example: <code>4</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>1</code></li> <li><code>2</code></li> <li><code>3</code></li> <li><code>4</code></li> <li><code>5</code></li></ul>
         </div>
@@ -1711,10 +1711,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="parent_id"                data-endpoint="POSTapi-tasks"
-               value="70"
+               value="0"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>70</code></p>
+<p>Must be at least 0. Example: <code>0</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
@@ -1722,10 +1722,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="POSTapi-tasks"
-               value="wzdgthmukzcijclldjh"
+               value="jeipzuy"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>wzdgthmukzcijclldjh</code></p>
+<p>Must not be greater than 255 characters. Example: <code>jeipzuy</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1733,14 +1733,14 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="POSTapi-tasks"
-               value="Eum sit autem qui necessitatibus voluptatem voluptates sint."
+               value="Magnam et accusantium dolores."
                data-component="body">
     <br>
-<p>Must not be greater than 10000 characters. Example: <code>Eum sit autem qui necessitatibus voluptatem voluptates sint.</code></p>
+<p>Must not be greater than 10000 characters. Example: <code>Magnam et accusantium dolores.</code></p>
         </div>
         </form>
 
-                    <h2 id="endpoints-PUTapi-tasks--task_id-">Update the specified Task in DB</h2>
+                    <h2 id="endpoints-PATCHapi-tasks--task_id-">Update the specified Task in DB</h2>
 
 <p>
 <small class="badge badge-darkred">requires authentication</small>
@@ -1748,21 +1748,21 @@ Must be one of:
 
 
 
-<span id="example-requests-PUTapi-tasks--task_id-">
+<span id="example-requests-PATCHapi-tasks--task_id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
+    <pre><code class="language-bash">curl --request PATCH \
     "http://localhost:8008/api/tasks/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"parent_id\": 14,
-    \"title\": \"tkcsbbagcidiatqicxxdjshf\",
-    \"description\": \"Possimus sunt omnis aspernatur commodi consequatur.\",
-    \"priority\": \"2\"
+    \"parent_id\": 5,
+    \"title\": \"zzxvmkpvaszkvu\",
+    \"description\": \"Nulla aut tempora saepe velit a a.\",
+    \"priority\": \"1\"
 }"
 </code></pre></div>
 
@@ -1779,66 +1779,66 @@ const headers = {
 };
 
 let body = {
-    "parent_id": 14,
-    "title": "tkcsbbagcidiatqicxxdjshf",
-    "description": "Possimus sunt omnis aspernatur commodi consequatur.",
-    "priority": "2"
+    "parent_id": 5,
+    "title": "zzxvmkpvaszkvu",
+    "description": "Nulla aut tempora saepe velit a a.",
+    "priority": "1"
 };
 
 fetch(url, {
-    method: "PUT",
+    method: "PATCH",
     headers,
     body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTapi-tasks--task_id-">
+<span id="example-responses-PATCHapi-tasks--task_id-">
 </span>
-<span id="execution-results-PUTapi-tasks--task_id-" hidden>
+<span id="execution-results-PATCHapi-tasks--task_id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTapi-tasks--task_id-"></span>:
+                id="execution-response-status-PATCHapi-tasks--task_id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-tasks--task_id-"
+    <pre class="json"><code id="execution-response-content-PATCHapi-tasks--task_id-"
       data-empty-response-text="<Empty response>" style="max-height: 400px;"></code></pre>
 </span>
-<span id="execution-error-PUTapi-tasks--task_id-" hidden>
+<span id="execution-error-PATCHapi-tasks--task_id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-tasks--task_id-">
+    <pre><code id="execution-error-message-PATCHapi-tasks--task_id-">
 
 Tip: Check that you&#039;re properly connected to the network.
 If you&#039;re a maintainer of ths API, verify that your API is running and you&#039;ve enabled CORS.
 You can check the Dev Tools console for debugging information.</code></pre>
 </span>
-<form id="form-PUTapi-tasks--task_id-" data-method="PUT"
+<form id="form-PATCHapi-tasks--task_id-" data-method="PATCH"
       data-path="api/tasks/{task_id}"
       data-authed="1"
       data-hasfiles="0"
       data-isarraybody="0"
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-tasks--task_id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('PATCHapi-tasks--task_id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-tasks--task_id-"
-                    onclick="tryItOut('PUTapi-tasks--task_id-');">Try it out ⚡
+                    id="btn-tryout-PATCHapi-tasks--task_id-"
+                    onclick="tryItOut('PATCHapi-tasks--task_id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-tasks--task_id-"
-                    onclick="cancelTryOut('PUTapi-tasks--task_id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-PATCHapi-tasks--task_id-"
+                    onclick="cancelTryOut('PATCHapi-tasks--task_id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-tasks--task_id-"
+                    id="btn-executetryout-PATCHapi-tasks--task_id-"
                     data-initial-text="Send Request 💥"
                     data-loading-text="⏱ Sending..."
                     hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-darkblue">PUT</small>
+            <small class="badge badge-purple">PATCH</small>
             <b><code>api/tasks/{task_id}</code></b>
         </p>
                 <h4 class="fancy-heading-panel"><b>Headers</b></h4>
@@ -1847,7 +1847,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Authorization" class="auth-value"               data-endpoint="PUTapi-tasks--task_id-"
+                              name="Authorization" class="auth-value"               data-endpoint="PATCHapi-tasks--task_id-"
                value="Bearer {YOUR_AUTH_KEY}"
                data-component="header">
     <br>
@@ -1858,7 +1858,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Content-Type"                data-endpoint="PUTapi-tasks--task_id-"
+                              name="Content-Type"                data-endpoint="PATCHapi-tasks--task_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1869,7 +1869,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 &nbsp;
  &nbsp;
                 <input type="text" style="display: none"
-                              name="Accept"                data-endpoint="PUTapi-tasks--task_id-"
+                              name="Accept"                data-endpoint="PATCHapi-tasks--task_id-"
                value="application/json"
                data-component="header">
     <br>
@@ -1881,7 +1881,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small>integer</small>&nbsp;
  &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="task_id"                data-endpoint="PUTapi-tasks--task_id-"
+               step="any"               name="task_id"                data-endpoint="PATCHapi-tasks--task_id-"
                value="1"
                data-component="url">
     <br>
@@ -1893,44 +1893,44 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <small>integer</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
-               step="any"               name="parent_id"                data-endpoint="PUTapi-tasks--task_id-"
-               value="14"
+               step="any"               name="parent_id"                data-endpoint="PATCHapi-tasks--task_id-"
+               value="5"
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present. Example: <code>14</code></p>
+<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present. Example: <code>5</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
-                              name="title"                data-endpoint="PUTapi-tasks--task_id-"
-               value="tkcsbbagcidiatqicxxdjshf"
+                              name="title"                data-endpoint="PATCHapi-tasks--task_id-"
+               value="zzxvmkpvaszkvu"
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters. Example: <code>tkcsbbagcidiatqicxxdjshf</code></p>
+<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters. Example: <code>zzxvmkpvaszkvu</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
-                              name="description"                data-endpoint="PUTapi-tasks--task_id-"
-               value="Possimus sunt omnis aspernatur commodi consequatur."
+                              name="description"                data-endpoint="PATCHapi-tasks--task_id-"
+               value="Nulla aut tempora saepe velit a a."
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters. Example: <code>Possimus sunt omnis aspernatur commodi consequatur.</code></p>
+<p>This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters. Example: <code>Nulla aut tempora saepe velit a a.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>priority</code></b>&nbsp;&nbsp;
 <small>string</small>&nbsp;
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
-                              name="priority"                data-endpoint="PUTapi-tasks--task_id-"
-               value="2"
+                              name="priority"                data-endpoint="PATCHapi-tasks--task_id-"
+               value="1"
                data-component="body">
     <br>
-<p>This field is required when none of <code>title</code>, <code>description</code>, and <code>parent_id</code> are present. Example: <code>2</code></p>
+<p>This field is required when none of <code>title</code>, <code>description</code>, and <code>parent_id</code> are present. Example: <code>1</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>1</code></li> <li><code>2</code></li> <li><code>3</code></li> <li><code>4</code></li> <li><code>5</code></li></ul>
         </div>
