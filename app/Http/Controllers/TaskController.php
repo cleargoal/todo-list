@@ -10,6 +10,7 @@ use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
+use App\Exceptions\TaskHasTodoChildrenException;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
@@ -110,7 +111,7 @@ class TaskController extends Controller
         } catch (TaskDeletionException $e) {
             return response()->json(['message' => $e->getMessage()], 409);
         } catch (Exception $e) {
-            return response()->json(['message' => 'An unexpected error occurred.'], 500);
+            return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
@@ -118,6 +119,7 @@ class TaskController extends Controller
      * Mark Task as 'done'
      * @param Task $task
      * @return TaskShowResource|JsonResponse
+     * @throws TaskHasTodoChildrenException
      */
     public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
