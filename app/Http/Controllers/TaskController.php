@@ -135,10 +135,10 @@ class TaskController extends Controller
     /**
      * Get tasks collection by filters
      * @param Request $request
-     * @queryParam title string Filter the tasks by a specific part of title. Example: something
-     * @queryParam description string Filter the tasks by a specific part of description. Example: good
+     * @queryParam title string Filter the tasks by a specific part of the title. Example: something
+     * @queryParam description string Filter the tasks by a specific part of the description. Example: good
      * @queryParam priority int Filter the tasks by a priority. Example: 4
-     * @queryParam status string Filter the tasks by a status. Example: todo
+     * @queryParam status string Filter the tasks by status. Example: todo
      * @return AnonymousResourceCollection
      */
     public function getFilteredCollection(Request $request): AnonymousResourceCollection
@@ -163,9 +163,9 @@ class TaskController extends Controller
     /**
      * Sorting tasks
      * @param Request $request
-     * @queryParam priority string Sorting the tasks by a priority. Example: desc
-     * @queryParam created_at string Filter the tasks by a created_at. Example: asc
-     * @queryParam completed_at string Filter the tasks by a completed_at. Example: asc
+     * @queryParam priority string Sorting the tasks by priority. Example: desc
+     * @queryParam created_at string Sorting the tasks by a created_at. Example: asc
+     * @queryParam completed_at string Sorting the tasks by a completed_at. Example: asc
      * @return AnonymousResourceCollection
      */
     public function getSortedCollection(Request $request): AnonymousResourceCollection
