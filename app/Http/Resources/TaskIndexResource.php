@@ -20,7 +20,7 @@ class TaskIndexResource extends JsonResource
             'status' => $this->status,
             'priority' => $this->priority,
             'created' => $this->created_at,
-            'completed' => $this->completed_at ? 'yes' : 'no',
+            'completed' => $this->completed_at,
         ];
     }
 }
