@@ -17,12 +17,14 @@ class TaskShowResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'status' => $this->status,
-            'priority' => $this->priority,
+            'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'created' => $this->created_at,
-            'completed' => $this->completed_at ? 'yes' : 'no',
+            'parent_id' => $this->parent_id,
+            'status' => $this->status,
+            'priority' => $this->priority,
+            'created_at' => $this->created_at,
+            'completed_at' => $this->completed_at,
         ];
     }
 }
