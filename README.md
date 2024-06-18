@@ -25,7 +25,7 @@
 ## Using API documentation
 1. 'Scribe' package have been used for creating API documentation.
 2. If needed, you can regenerate it by running command `sail artisan scribe:generate`
-3. Documentation is at the URL http://localhost:8008/docs
+3. Documentation is at the URL http://localhost:8008/docs, or on other port if you have tuned it.
 4. First, you need to authorize user by picking 'Login user and create token' point.
 5. Then, click 'Try it out' button
 6. In the fields below enter email and password:
