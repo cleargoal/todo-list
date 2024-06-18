@@ -18,11 +18,12 @@ class TaskIndexResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
             'title' => $this->title,
             'status' => $this->status,
             'priority' => $this->priority,
-            'created' => $this->created_at,
-            'completed' => $this->completed_at,
+            'created_at' => $this->created_at,
+            'completed_at' => $this->completed_at,
         ];
     }
 }
