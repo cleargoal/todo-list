@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->string('status')->default(StatusEnum::TODO);
             $table->string('priority')->default(\App\Enums\PriorityEnum::MID)->index();
-            $table->string('title');
-            $table->text('description');
+            $table->string('title')->fullText();
+            $table->text('description')->fullText();
             $table->timestamps();
             $table->timestamp('completed_at')->nullable();
         });
