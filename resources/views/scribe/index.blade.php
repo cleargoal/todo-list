@@ -121,7 +121,7 @@
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: June 14, 2024</li>
+        <li>Last updated: June 18, 2024</li>
     </ul>
 </div>
 
@@ -165,9 +165,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"iataaninaxf\",
-    \"email\": \"price.katlyn@example.org\",
-    \"password\": \"0N_e#]X\"
+    \"name\": \"sgpyiqo\",
+    \"email\": \"estella78@example.com\",
+    \"password\": \"&amp;:Ajy.eb\'SS3\'N6\\/|.O:\"
 }"
 </code></pre></div>
 
@@ -184,9 +184,9 @@ const headers = {
 };
 
 let body = {
-    "name": "iataaninaxf",
-    "email": "price.katlyn@example.org",
-    "password": "0N_e#]X"
+    "name": "sgpyiqo",
+    "email": "estella78@example.com",
+    "password": "&amp;:Ajy.eb'SS3'N6\/|.O:"
 };
 
 fetch(url, {
@@ -286,10 +286,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="name"                data-endpoint="POSTapi-register"
-               value="iataaninaxf"
+               value="sgpyiqo"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>iataaninaxf</code></p>
+<p>Must not be greater than 255 characters. Example: <code>sgpyiqo</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -297,10 +297,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-register"
-               value="price.katlyn@example.org"
+               value="estella78@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>price.katlyn@example.org</code></p>
+<p>Must be a valid email address. Must not be greater than 255 characters. Example: <code>estella78@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -308,10 +308,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-register"
-               value="0N_e#]X"
+               value="&:Ajy.eb'SS3'N6/|.O:"
                data-component="body">
     <br>
-<p>Must be at least 8 characters. Example: <code>0N_e#]X</code></p>
+<p>Must be at least 8 characters. Example: <code>&amp;:Ajy.eb'SS3'N6/|.O:</code></p>
         </div>
         </form>
 
@@ -334,8 +334,8 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"clementina.mcglynn@example.com\",
-    \"password\": \"3e.\\\\#d;+X*BAEhFt!q\"
+    \"email\": \"mcdermott.alexandre@example.org\",
+    \"password\": \"OX2K{]4lMR\\/\"
 }"
 </code></pre></div>
 
@@ -352,8 +352,8 @@ const headers = {
 };
 
 let body = {
-    "email": "clementina.mcglynn@example.com",
-    "password": "3e.\\#d;+X*BAEhFt!q"
+    "email": "mcdermott.alexandre@example.org",
+    "password": "OX2K{]4lMR\/"
 };
 
 fetch(url, {
@@ -453,10 +453,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="email"                data-endpoint="POSTapi-login"
-               value="clementina.mcglynn@example.com"
+               value="mcdermott.alexandre@example.org"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>clementina.mcglynn@example.com</code></p>
+<p>Must be a valid email address. Example: <code>mcdermott.alexandre@example.org</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -464,10 +464,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
  &nbsp;
                 <input type="text" style="display: none"
                               name="password"                data-endpoint="POSTapi-login"
-               value="3e.\#d;+X*BAEhFt!q"
+               value="OX2K{]4lMR/"
                data-component="body">
     <br>
-<p>Example: <code>3e.\#d;+X*BAEhFt!q</code></p>
+<p>Example: <code>OX2K{]4lMR/</code></p>
         </div>
         </form>
 
@@ -1174,7 +1174,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="something"
                data-component="query">
     <br>
-<p>Filter the tasks by a specific part of title. Example: <code>something</code></p>
+<p>Filter the tasks by a specific part of the title. Example: <code>something</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1185,7 +1185,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="good"
                data-component="query">
     <br>
-<p>Filter the tasks by a specific part of description. Example: <code>good</code></p>
+<p>Filter the tasks by a specific part of the description. Example: <code>good</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>priority</code></b>&nbsp;&nbsp;
@@ -1207,7 +1207,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="todo"
                data-component="query">
     <br>
-<p>Filter the tasks by a status. Example: <code>todo</code></p>
+<p>Filter the tasks by status. Example: <code>todo</code></p>
             </div>
                 </form>
 
@@ -1365,7 +1365,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="desc"
                data-component="query">
     <br>
-<p>Sorting the tasks by a priority. Example: <code>desc</code></p>
+<p>Sorting the tasks by priority. Example: <code>desc</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>created_at</code></b>&nbsp;&nbsp;
@@ -1376,7 +1376,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="asc"
                data-component="query">
     <br>
-<p>Filter the tasks by a created_at. Example: <code>asc</code></p>
+<p>Sorting the tasks by a created_at. Example: <code>asc</code></p>
             </div>
                                     <div style="padding-left: 28px; clear: unset;">
                 <b style="line-height: 2;"><code>completed_at</code></b>&nbsp;&nbsp;
@@ -1387,7 +1387,7 @@ You can check the Dev Tools console for debugging information.</code></pre>
                value="asc"
                data-component="query">
     <br>
-<p>Filter the tasks by a completed_at. Example: <code>asc</code></p>
+<p>Sorting the tasks by a completed_at. Example: <code>asc</code></p>
             </div>
                 </form>
 
@@ -1560,11 +1560,11 @@ You can check the Dev Tools console for debugging information.</code></pre>
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"status\": \"done\",
-    \"priority\": \"4\",
-    \"parent_id\": 0,
-    \"title\": \"jeipzuy\",
-    \"description\": \"Magnam et accusantium dolores.\"
+    \"status\": \"todo\",
+    \"priority\": \"3\",
+    \"parent_id\": 80,
+    \"title\": \"stkwpftxuaywp\",
+    \"description\": \"Perferendis omnis illum harum ad recusandae.\"
 }"
 </code></pre></div>
 
@@ -1581,11 +1581,11 @@ const headers = {
 };
 
 let body = {
-    "status": "done",
-    "priority": "4",
-    "parent_id": 0,
-    "title": "jeipzuy",
-    "description": "Magnam et accusantium dolores."
+    "status": "todo",
+    "priority": "3",
+    "parent_id": 80,
+    "title": "stkwpftxuaywp",
+    "description": "Perferendis omnis illum harum ad recusandae."
 };
 
 fetch(url, {
@@ -1685,10 +1685,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="status"                data-endpoint="POSTapi-tasks"
-               value="done"
+               value="todo"
                data-component="body">
     <br>
-<p>Example: <code>done</code></p>
+<p>Example: <code>todo</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>todo</code></li> <li><code>done</code></li></ul>
         </div>
@@ -1698,10 +1698,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="priority"                data-endpoint="POSTapi-tasks"
-               value="4"
+               value="3"
                data-component="body">
     <br>
-<p>Example: <code>4</code></p>
+<p>Example: <code>3</code></p>
 Must be one of:
 <ul style="list-style-type: square;"><li><code>1</code></li> <li><code>2</code></li> <li><code>3</code></li> <li><code>4</code></li> <li><code>5</code></li></ul>
         </div>
@@ -1711,10 +1711,10 @@ Must be one of:
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="parent_id"                data-endpoint="POSTapi-tasks"
-               value="0"
+               value="80"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>0</code></p>
+<p>Must be at least 0. Example: <code>80</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
@@ -1722,10 +1722,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="POSTapi-tasks"
-               value="jeipzuy"
+               value="stkwpftxuaywp"
                data-component="body">
     <br>
-<p>Must not be greater than 255 characters. Example: <code>jeipzuy</code></p>
+<p>Must not be greater than 255 characters. Example: <code>stkwpftxuaywp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1733,10 +1733,10 @@ Must be one of:
  &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="POSTapi-tasks"
-               value="Magnam et accusantium dolores."
+               value="Perferendis omnis illum harum ad recusandae."
                data-component="body">
     <br>
-<p>Must not be greater than 10000 characters. Example: <code>Magnam et accusantium dolores.</code></p>
+<p>Must not be greater than 10000 characters. Example: <code>Perferendis omnis illum harum ad recusandae.</code></p>
         </div>
         </form>
 
@@ -1759,9 +1759,9 @@ Must be one of:
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"parent_id\": 5,
-    \"title\": \"zzxvmkpvaszkvu\",
-    \"description\": \"Nulla aut tempora saepe velit a a.\",
+    \"parent_id\": 3,
+    \"title\": \"lzzjy\",
+    \"description\": \"Ipsa minus aut optio quia voluptas vel.\",
     \"priority\": \"1\"
 }"
 </code></pre></div>
@@ -1779,9 +1779,9 @@ const headers = {
 };
 
 let body = {
-    "parent_id": 5,
-    "title": "zzxvmkpvaszkvu",
-    "description": "Nulla aut tempora saepe velit a a.",
+    "parent_id": 3,
+    "title": "lzzjy",
+    "description": "Ipsa minus aut optio quia voluptas vel.",
     "priority": "1"
 };
 
@@ -1894,10 +1894,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="number" style="display: none"
                step="any"               name="parent_id"                data-endpoint="PATCHapi-tasks--task_id-"
-               value="5"
+               value="3"
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present. Example: <code>5</code></p>
+<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present. Example: <code>3</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>title</code></b>&nbsp;&nbsp;
@@ -1905,10 +1905,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="title"                data-endpoint="PATCHapi-tasks--task_id-"
-               value="zzxvmkpvaszkvu"
+               value="lzzjy"
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters. Example: <code>zzxvmkpvaszkvu</code></p>
+<p>This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters. Example: <code>lzzjy</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1916,10 +1916,10 @@ You can check the Dev Tools console for debugging information.</code></pre>
 <i>optional</i> &nbsp;
                 <input type="text" style="display: none"
                               name="description"                data-endpoint="PATCHapi-tasks--task_id-"
-               value="Nulla aut tempora saepe velit a a."
+               value="Ipsa minus aut optio quia voluptas vel."
                data-component="body">
     <br>
-<p>This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters. Example: <code>Nulla aut tempora saepe velit a a.</code></p>
+<p>This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters. Example: <code>Ipsa minus aut optio quia voluptas vel.</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>priority</code></b>&nbsp;&nbsp;

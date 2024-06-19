@@ -147,11 +147,21 @@ readonly class TaskService
      * Get filtered user's tasks
      * @param int $userId
      * @param TaskFiltersDto $filters
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
-    public function getFiltered(int $userId, TaskFiltersDto $filters): Collection
+    public function getFiltered(int $userId, TaskFiltersDto $filters): \Illuminate\Support\Collection
     {
-        return $this->repository->getFilteredTasks($userId, $filters);
+        $filtered = collect();
+        if ($filters->title !== null) {
+            $fromRepo = $this->repository->scoutSearch($userId, $filters->title);
+            Log::info('from Repo', [$fromRepo]);
+            $filtered->merge($fromRepo);
+            Log::info('filtered', [$filtered->all()]);
+        }
+        if ($filters->description !== null) {
+            $filtered->merge($this->repository->scoutSearch($userId, $filters->description));
+        }
+        return $filtered->merge($this->repository->getFilteredTasks($userId, $filters));
     }
 
     /**

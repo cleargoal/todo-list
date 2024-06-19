@@ -122,6 +122,18 @@ class TaskRepository
     }
 
     /**
+     * Get searched tasks
+     * @param int $userId
+     * @param string $value
+     * @return Collection
+     */
+    public function scoutSearch(int $userId, string $value): Collection
+    {
+        Log::info('search result', [Task::search($value)->get()]);
+        return Task::search($value)->get();
+    }
+
+    /**
      * Get sorted user's tasks
      *
      * @param int $userId
