@@ -9,6 +9,8 @@ use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Laravel\Scout\Engines\Engine;
+use Laravel\Scout\EngineManager;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -36,5 +38,17 @@ class Task extends Model
     public function children(): HasMany
     {
         return $this->hasMany(Task::class, 'parent_id');
+    }
+
+    /**
+     * Method for Scout search
+     * @return array
+     */
+    public function toSearchableArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'description' => $this->descriptio,
+        ];
     }
 }
