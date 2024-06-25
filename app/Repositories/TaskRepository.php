@@ -129,8 +129,7 @@ class TaskRepository
      */
     public function scoutSearch(int $userId, string $value): Collection
     {
-        Log::info('search result', [Task::search($value)->get()]);
-        return Task::search($value)->get();
+        return Task::search($value)->where('user_id', $userId)->get();
     }
 
     /**

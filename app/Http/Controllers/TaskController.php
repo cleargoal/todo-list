@@ -151,13 +151,13 @@ class TaskController extends Controller
             'status' => ['sometimes', 'nullable', Rule::enum(StatusEnum::class), 'required_without_all:title,description,priority'],
         ]);
 
-        $taskDto = new TaskFiltersDto(
+        $filtersDto = new TaskFiltersDto(
             $request->query('title') ?? null,
             $request->query('description') ?? null,
                 $request->query('priority') ? PriorityEnum::from($request->query('priority')) : null,
                 $request->query('status') ? StatusEnum::from($request->query('status')) : null,
         );
-        return TaskIndexResource::collection($this->service->getFiltered(request()->user()->id, $taskDto));
+        return TaskIndexResource::collection($this->service->getFiltered(request()->user()->id, $filtersDto));
     }
 
     /**

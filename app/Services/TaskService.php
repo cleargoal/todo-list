@@ -153,14 +153,15 @@ readonly class TaskService
     {
         $filtered = collect();
         if ($filters->title !== null) {
-            $fromRepo = $this->repository->scoutSearch($userId, $filters->title);
-            Log::info('from Repo', [$fromRepo]);
-            $filtered->merge($fromRepo);
-            Log::info('filtered', [$filtered->all()]);
+            $fromRepoByTitle = collect($this->repository->scoutSearch($userId, $filters->title));
+            $filtered = $filtered->merge($fromRepoByTitle);
         }
         if ($filters->description !== null) {
-            $filtered->merge($this->repository->scoutSearch($userId, $filters->description));
+            $fromRepoByDesc = collect($this->repository->scoutSearch($userId, $filters->description));
+            $filtered = $filtered->merge($fromRepoByDesc);
         }
+
+
         return $filtered->merge($this->repository->getFilteredTasks($userId, $filters));
     }
 
