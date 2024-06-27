@@ -106,12 +106,8 @@ class TaskController extends Controller
         try {
             $this->service->delete($task);
             return response()->json(['message' => 'Delete successful!']);
-        } catch (TaskAlreadyDoneException $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
-        } catch (TaskDeletionException $e) {
-            return response()->json(['message' => $e->getMessage()], 409);
-        } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+        } catch (TaskAlreadyDoneException|TaskDeletionException|Exception $e) {
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
     }
 
@@ -128,7 +124,7 @@ class TaskController extends Controller
             return new TaskShowResource($response);
         }
         catch(TaskAlreadyDoneException $e) {
-            return response()->json(['message' => $e->getMessage()], 400);
+            return response()->json(['message' => $e->getMessage()], $e->getCode());
         }
     }
 
