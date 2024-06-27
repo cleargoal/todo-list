@@ -21,12 +21,12 @@ $missingTaskHandler = function (Request $request) {
 
 Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHandler) {
     Route::get('/tasks', [TaskController::class, 'index']);
-    Route::get('/tasks/tree/{task}', [TaskController::class, 'getUserTaskTree'])->missing($missingTaskHandler)->middleware('can:view,task');
+    Route::get('/tasks/tree/{task}', [TaskController::class, 'getUserTaskTree'])->missing($missingTaskHandler)->middleware('can:own,task');
     Route::get('/tasks/filtered', [TaskController::class, 'getFilteredCollection']);
     Route::get('/tasks/sorted', [TaskController::class, 'getSortedCollection']);
-    Route::get('/tasks/{task}', [TaskController::class, 'show'])->missing($missingTaskHandler)->middleware('can:view,task');
+    Route::get('/tasks/{task}', [TaskController::class, 'show'])->missing($missingTaskHandler)->middleware('can:own,task');
     Route::post('/tasks', [TaskController::class, 'store']);
-    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:update,task');
-    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->missing($missingTaskHandler)->middleware('can:delete,task');
-    Route::patch('/tasks/done/{task}', [TaskController::class, 'markTaskDone'])->missing($missingTaskHandler)->middleware('can:update,task');
+    Route::patch('/tasks/{task}', [TaskController::class, 'update'])->missing($missingTaskHandler)->middleware('can:own,task');
+    Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->missing($missingTaskHandler)->middleware('can:own,task');
+    Route::patch('/tasks/done/{task}', [TaskController::class, 'markTaskDone'])->missing($missingTaskHandler)->middleware('can:own,task');
 });
