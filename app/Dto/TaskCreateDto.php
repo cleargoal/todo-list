@@ -1,33 +1,34 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Dto;
 
-use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
+use App\Enums\PriorityEnum;
 
-readonly class TaskCreateDto
+class TaskCreateDto
 {
-    public function __construct(
-        public int          $userId,
-        public int          $parentId,
-        public string       $title,
-        public string       $description,
-        public StatusEnum   $status,
-        public PriorityEnum $priority,
-    ) {
-    }
+    public int $userId;
+    public ?int $parentId;
+    public string $title;
+    public string $description;
+    public StatusEnum $status;
+    public PriorityEnum $priority;
 
-    public static function fromArray(array $data): TaskCreateDto
-    {
-        return new self(
-            userId: $data['user_id'],
-            parentId: $data['parent_id'],
-            title: $data['title'],
-            description: $data['description'],
-            status: $data['status'],
-            priority: $data['priority'],
-        );
+    public function __construct(
+        int $userId,
+        ?int $parentId = null,
+        string $title,
+        string $description,
+        StatusEnum $status = StatusEnum::TODO,
+        PriorityEnum $priority = PriorityEnum::LOW
+    ) {
+        $this->userId = $userId;
+        $this->parentId = $parentId;
+        $this->title = $title;
+        $this->description = $description;
+        $this->status = $status;
+        $this->priority = $priority;
     }
 }
