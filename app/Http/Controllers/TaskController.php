@@ -23,6 +23,18 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
+use OpenApi\Annotations as OA;
+
+
+/**
+ * @OA\Info(
+ *     title="Tasks Management API",
+ *     version="0.1"
+ * )
+ */
+//class OpenApi
+//{
+//}
 
 class TaskController extends Controller
 {
@@ -31,8 +43,38 @@ class TaskController extends Controller
     }
 
     /**
-     * Display a listing of the tasks
      * @return AnonymousResourceCollection
+     * @OA\Get(
+     *     path='/tasks',
+     *     summary='Display user's tasks list',
+     *     tags={'task'},
+     *     description='Tasks',
+     *     operationId='index',
+     *     @OA\Parameter(
+     *         name='tags',
+     *         in='query',
+     *         description='Tags to filter by',
+     *         required=true,
+     *         @OA\Schema(
+     *             type='array',
+     *             @OA\Items(type='string'),
+     *         ),
+     *         style='form'
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description='successful operation',
+     *         @OA\Schema(
+     *             type='array',
+     *             @OA\Items(ref='#/components/schemas/Task')
+     *         ),
+     *     ),
+     *     @OA\Response(
+     *         response='400',
+     *         description='Invalid tag value',
+     *     ),
+/     *     deprecated=true
+     *  )
      */
     public function index(): AnonymousResourceCollection
     {
@@ -57,13 +99,14 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request): TaskShowResource
     {
         $validated = $request->validated();
+
         $taskDto = new TaskCreateDto(
             $request->user()->id,
-            $validated['parent_id'],
+            $validated['parent_id'] ?? null,
             $validated['title'],
             $validated['description'],
-            StatusEnum::from($validated['status']),
-            PriorityEnum::from($validated['priority']),
+            StatusEnum::from($validated['status'] ?? StatusEnum::TODO->value),
+            PriorityEnum::from($validated['priority'] ?? PriorityEnum::LOW->value),
         );
         return new TaskShowResource($this->service->create($taskDto));
     }
@@ -87,12 +130,14 @@ class TaskController extends Controller
     public function update(UpdateTaskRequest $request, Task $task): JsonResponse|TaskShowResource
     {
         $validated = $request->validated();
+
         $taskDto = new TaskUpdateDto(
             $validated['parent_id'] ?? null,
             $validated['title'] ?? null,
             $validated['description'] ?? null,
-            PriorityEnum::from($validated['priority']) ?? null,
+            $priority = isset($validated['priority']) ? PriorityEnum::from($validated['priority']) : null,
         );
+
         return new TaskShowResource($this->service->update($task, $taskDto));
     }
 
