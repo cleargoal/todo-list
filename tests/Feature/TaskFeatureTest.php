@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class TaskControllerTest extends TestCase
+class TaskFeatureTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -18,26 +18,23 @@ class TaskControllerTest extends TestCase
     {
         parent::setUp();
 
-        // Create a user for testing with Sanctum authentication
-        Sanctum::actingAs(User::factory()->create());
+        $this->user = User::factory()->create();
+        $this->otherUser = User::factory()->create();
+        Sanctum::actingAs($this->user);
     }
 
-    public function test_can_create_task()
+    public function testCanCreateTask()
     {
-        $user = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
         $taskData = [
             'title' => 'Test Task',
             'description' => 'Test Description',
-            // Optionally add status and priority if needed
         ];
 
         $response = $this->postJson('/api/tasks', $taskData);
 
         $response->assertStatus(201);
         $this->assertDatabaseHas('tasks', [
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'title' => 'Test Task',
             'description' => 'Test Description',
             'status' => StatusEnum::TODO->value, // Default status
@@ -45,33 +42,25 @@ class TaskControllerTest extends TestCase
         ]);
     }
 
-    public function test_user_can_get_own_tasks()
+    public function testUserCanGetOwnTasks()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
         // Create tasks for both users
-        Task::factory()->count(5)->create(['user_id' => $user->id]);
-        Task::factory()->count(3)->create(['user_id' => $otherUser->id]);
+        Task::factory()->count(5)->create(['user_id' => $this->user->id]);
+        Task::factory()->count(3)->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->getJson('/api/tasks');
 
         $response->assertStatus(200);
-        $response->assertJsonCount(5, 'data'); // Adjust based on your response structure
+        $response->assertJsonCount(5, 'data');
     }
 
 
-    public function test_user_can_get_filtered_tasks()
+    public function testUserCanGetFilteredTasks()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
         // Create tasks with different statuses for both users
-        Task::factory()->count(3)->create(['user_id' => $user->id, 'status' => StatusEnum::TODO]);
-        Task::factory()->count(2)->create(['user_id' => $user->id, 'status' => StatusEnum::DONE]);
-        Task::factory()->count(1)->create(['user_id' => $otherUser->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->count(3)->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->count(2)->create(['user_id' => $this->user->id, 'status' => StatusEnum::DONE]);
+        Task::factory()->count(1)->create(['user_id' => $this->otherUser->id, 'status' => StatusEnum::TODO]);
 
         $response = $this->getJson('/api/tasks/filtered?status=todo');
 
@@ -80,17 +69,13 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_user_can_get_sorted_tasks()
+    public function testUserCanGetSortedTasks()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
         // Create tasks with different priorities for both users
-        Task::factory()->create(['user_id' => $user->id, 'priority' => PriorityEnum::HIGH->value]);
-        Task::factory()->create(['user_id' => $user->id, 'priority' => PriorityEnum::LOW->value]);
-        Task::factory()->create(['user_id' => $user->id, 'priority' => PriorityEnum::MID->value]);
-        Task::factory()->create(['user_id' => $otherUser->id, 'priority' => PriorityEnum::HIGH->value]);
+        Task::factory()->create(['user_id' => $this->user->id, 'priority' => PriorityEnum::HIGH->value]);
+        Task::factory()->create(['user_id' => $this->user->id, 'priority' => PriorityEnum::LOW->value]);
+        Task::factory()->create(['user_id' => $this->user->id, 'priority' => PriorityEnum::MID->value]);
+        Task::factory()->create(['user_id' => $this->otherUser->id, 'priority' => PriorityEnum::HIGH->value]);
 
         $response = $this->getJson('/api/tasks/sorted?priority=asc');
 
@@ -103,14 +88,10 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_user_can_update_own_task()
+    public function testUserCanUpdateOwnTask()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
-        $task = Task::factory()->create(['user_id' => $user->id]);
-        Task::factory()->create(['user_id' => $otherUser->id]);
+        $task = Task::factory()->create(['user_id' => $this->user->id]);
+        Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $updateData = [
             'title' => 'Updated Task Title',
@@ -128,14 +109,10 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_user_can_delete_own_task()
+    public function testUserCanDeleteOwnTask()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
-        $task = Task::factory()->create(['user_id' => $user->id]);
-        Task::factory()->create(['user_id' => $otherUser->id]);
+        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->deleteJson('/api/tasks/' . $task->id);
 
@@ -145,13 +122,23 @@ class TaskControllerTest extends TestCase
         ]);
     }
 
-
-    public function test_user_cannot_delete_completed_task()
+    public function testUserCannotDeleteOthersTask()
     {
-        $user = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
+        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        $otherTask = Task::factory()->create(['user_id' => $this->otherUser->id, 'status' => StatusEnum::TODO]);
 
-        $task = Task::factory()->create(['user_id' => $user->id, 'status' => StatusEnum::DONE]);
+        $response = $this->deleteJson('/api/tasks/' . $otherTask->id);
+
+        $response->assertStatus(403);
+        $this->assertDatabaseHas('tasks', [
+            'id' => $otherTask->id
+        ]);
+    }
+
+
+    public function testUserCannotDeleteCompletedTask()
+    {
+        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::DONE]);
 
         $response = $this->deleteJson('/api/tasks/' . $task->id);
 
@@ -162,14 +149,10 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_user_can_mark_own_task_as_done()
+    public function testUserCanMarkOwnTaskAsDone()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
-        $this->actingAs($user, 'sanctum');
-
-        $task = Task::factory()->create(['user_id' => $user->id, 'status' => StatusEnum::TODO]);
-        Task::factory()->create(['user_id' => $otherUser->id]);
+        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->patchJson('/api/tasks/done/' . $task->id);
 
@@ -181,7 +164,7 @@ class TaskControllerTest extends TestCase
     }
 
 
-    public function test_cannot_mark_task_as_done_with_uncompleted_subtasks()
+    public function testCannotMarkTaskAsDoneWithUncompletedSubtasks()
     {
         $task = Task::factory()->create(['status' => 'todo']);
         $subtask = Task::factory()->create(['parent_id' => $task->id, 'status' => 'todo']);
@@ -192,10 +175,9 @@ class TaskControllerTest extends TestCase
         $this->assertNull(Task::find($task->id)->completed_at);
     }
 
-    public function test_cannot_update_other_users_task()
+    public function testCannotUpdateOtherUsersTask()
     {
-        $task = Task::factory()->create();
-        Sanctum::actingAs(User::factory()->create());
+        $task = Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->patchJson("/api/tasks/{$task->id}", [
             'title' => 'Updated Task Title',
