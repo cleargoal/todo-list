@@ -7,7 +7,7 @@ namespace App\Exceptions;
 use Exception;
 use Symfony\Component\HttpFoundation\Response;
 
-class TaskHasTodoChildrenException extends Exception
+class TaskHasUncompletedChildrenException extends Exception
 {
     protected $message = 'Action impossible! Task has uncompleted children.';
     protected $code = Response::HTTP_CONFLICT; // 409

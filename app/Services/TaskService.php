@@ -9,7 +9,7 @@ use App\Dto\TaskUpdateDto;
 use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
-use App\Exceptions\TaskHasTodoChildrenException;
+use App\Exceptions\TaskHasUncompletedChildrenException;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Illuminate\Database\Eloquent\Collection;
@@ -102,7 +102,7 @@ readonly class TaskService
      * Mark task as done
      * @param Task $task
      * @return Task
-     * @throws TaskAlreadyDoneException|TaskHasTodoChildrenException
+     * @throws TaskAlreadyDoneException|TaskHasUncompletedChildrenException
      */
     public function markTaskDone(Task $task): Task
     {
@@ -114,7 +114,7 @@ readonly class TaskService
 
         $check = $this->checkChildren($withChildren, $status);
         if($check) {
-            throw new TaskHasTodoChildrenException();
+            throw new TaskHasUncompletedChildrenException();
         }
 
         return $this->repository->setTaskStatusDone($task);

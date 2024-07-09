@@ -10,7 +10,7 @@ use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
-use App\Exceptions\TaskHasTodoChildrenException;
+use App\Exceptions\TaskHasUncompletedChildrenException;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
@@ -114,9 +114,9 @@ class TaskController extends Controller
     /**
      * Display the specified Task
      * @param Task $task
-     * @return TaskShowResource|JsonResponse
+     * @return TaskShowResource
      */
-    public function show(Task $task): TaskShowResource|JsonResponse
+    public function show(Task $task): TaskShowResource
     {
         return new TaskShowResource($task);
     }
@@ -145,32 +145,24 @@ class TaskController extends Controller
      * Remove the specified Task from DB
      * @param Task $task
      * @return JsonResponse
+     * @throws TaskAlreadyDoneException|TaskDeletionException
      */
     public function destroy(Task $task): JsonResponse
     {
-        try {
-            $this->service->delete($task);
-            return response()->json(['message' => 'Delete successful!']);
-        } catch (TaskAlreadyDoneException|TaskDeletionException|Exception $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());
-        }
+        $this->service->delete($task);
+        return response()->json(['message' => 'Delete successful!']);
     }
 
     /**
      * Mark Task as 'done'
      * @param Task $task
      * @return TaskShowResource|JsonResponse
-     * @throws TaskHasTodoChildrenException
+     * @throws TaskAlreadyDoneException|TaskHasUncompletedChildrenException
      */
     public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
-        try{
             $response = $this->service->markTaskDone($task);
             return new TaskShowResource($response);
-        }
-        catch(TaskAlreadyDoneException $e) {
-            return response()->json(['message' => $e->getMessage()], $e->getCode());
-        }
     }
 
     /**
@@ -198,7 +190,7 @@ class TaskController extends Controller
                 $request->query('priority') ? PriorityEnum::from($request->query('priority')) : null,
                 $request->query('status') ? StatusEnum::from($request->query('status')) : null,
         );
-        return TaskIndexResource::collection($this->service->getFiltered(request()->user()->id, $filtersDto));
+        return TaskIndexResource::collection($this->service->getFiltered($request->user()->id, $filtersDto));
     }
 
     /**
@@ -218,7 +210,7 @@ class TaskController extends Controller
             'completed_at' => 'sometimes|nullable|string|in:asc,desc|required_without_all:priority, created_at',
         ]);
 
-        return TaskIndexResource::collection($this->service->getSorted(request()->user()->id, $validated));
+        return TaskIndexResource::collection($this->service->getSorted($request->user()->id, $validated));
     }
 
 }
