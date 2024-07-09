@@ -5,11 +5,15 @@ declare(strict_types = 1);
 namespace App\Exceptions;
 
 use Exception;
+use Symfony\Component\HttpFoundation\Response;
 
 class TaskHasTodoChildrenException extends Exception
 {
-    public function __construct()
+    protected $message = 'Action impossible! Task has uncompleted children.';
+    protected $code = Response::HTTP_CONFLICT; // 409
+
+    public function __construct($message = null, $code = null, Exception $previous = null)
     {
-        parent::__construct('Action impossible! Task has TODO children.', 400);
+        parent::__construct($message ?: $this->message, $code ?: $this->code, $previous);
     }
 }
