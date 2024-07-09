@@ -19,7 +19,7 @@ $missingTaskHandler = function (Request $request) {
     ], 404);
 };
 
-Route::middleware(['api', 'auth:sanctum'])->group(function () use($missingTaskHandler) {
+Route::middleware(['auth:sanctum'])->group(function () use($missingTaskHandler) {
     Route::get('/tasks', [TaskController::class, 'index']);
     Route::get('/tasks/tree/{task}', [TaskController::class, 'getUserTaskTree'])->missing($missingTaskHandler)->middleware('can:own,task');
     Route::get('/tasks/filtered', [TaskController::class, 'getFilteredCollection']);
