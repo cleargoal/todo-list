@@ -142,7 +142,7 @@ class TaskFeatureTest extends TestCase
 
         $response = $this->deleteJson('/api/tasks/' . $task->id);
 
-        $response->assertStatus(422);
+        $response->assertStatus(409);
         $this->assertDatabaseHas('tasks', [
             'id' => $task->id
         ]);
