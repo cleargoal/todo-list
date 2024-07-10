@@ -13,7 +13,6 @@ use App\Exceptions\TaskHasUncompletedChildrenException;
 use App\Models\Task;
 use App\Repositories\TaskRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
 
 readonly class TaskService
 {
@@ -65,7 +64,6 @@ readonly class TaskService
         if ($task->status === StatusEnum::DONE) {
             throw new TaskAlreadyDoneException();
         }
-
         if (!$this->repository->delete($task)) {
             throw new TaskDeletionException();
         }
