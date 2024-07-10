@@ -32,9 +32,6 @@ use OpenApi\Annotations as OA;
  *     version="0.1"
  * )
  */
-//class OpenApi
-//{
-//}
 
 class TaskController extends Controller
 {
@@ -157,7 +154,6 @@ class TaskController extends Controller
      * Mark Task as 'done'
      * @param Task $task
      * @return TaskShowResource|JsonResponse
-     * @throws TaskAlreadyDoneException|TaskHasUncompletedChildrenException
      */
     public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
