@@ -17,11 +17,9 @@ use App\Http\Resources\TaskIndexResource;
 use App\Http\Resources\TaskShowResource;
 use App\Models\Task;
 use App\Services\TaskService;
-use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use OpenApi\Annotations as OA;
 
@@ -151,14 +149,15 @@ class TaskController extends Controller
     }
 
     /**
-     * Mark Task as 'done'
+     * Set Task's status as 'done'
      * @param Task $task
      * @return TaskShowResource|JsonResponse
+     * @throws TaskHasUncompletedChildrenException|TaskAlreadyDoneException
      */
     public function markTaskDone(Task $task): TaskShowResource|JsonResponse
     {
-            $response = $this->service->markTaskDone($task);
-            return new TaskShowResource($response);
+        $response = $this->service->markTaskDone($task);
+        return new TaskShowResource($response);
     }
 
     /**
