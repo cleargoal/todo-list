@@ -21,8 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->renderable(function (Exception $e): Response {
-            Log::info('Denied', ['instance' => get_class($e), 'exception' => $e->getMessage(), $e->getCode()]);
-            Log::info('Denied.code', [$e->getCode()]);
+            Log::info('Exception instance', ['instance' => get_class($e), 'message' => $e->getMessage(), 'code' => $e->getCode()]);
             $statusCode = Response::HTTP_FORBIDDEN;
             if ($e instanceof TaskAlreadyDoneException) {
                 $statusCode = Response::HTTP_CONFLICT;
