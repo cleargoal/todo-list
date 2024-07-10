@@ -10,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskHasUncompletedChildrenException extends Exception
 {
     protected $message = 'Action impossible! Task has uncompleted children.';
-    protected $code = Response::HTTP_CONFLICT; // 409
 
     public function __construct($message = null, $code = null, Exception $previous = null)
     {

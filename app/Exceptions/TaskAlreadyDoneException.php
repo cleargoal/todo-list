@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskAlreadyDoneException extends Exception
 {
     protected $message = 'The task has already been completed.';
-    protected $code = Response::HTTP_CONFLICT; // 409
 
     public function __construct($message = null, $code = null, Exception $previous = null)
     {

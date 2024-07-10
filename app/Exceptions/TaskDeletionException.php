@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskDeletionException extends Exception
 {
     protected $message = 'Task deletion error!';
-    protected $code = Response::HTTP_BAD_REQUEST;
 
     public function __construct($message = null, $code = null, Exception $previous = null)
     {
