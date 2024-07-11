@@ -10,7 +10,7 @@ use App\Enums\StatusEnum;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TaskRepository
 {
@@ -79,9 +79,23 @@ class TaskRepository
         return Task::where('id', $taskId)
             ->where('user_id', $userId)
             ->with(['children' => function ($query) use ($userId) {
-                $query->where('user_id', $userId);
+                $this->applyUserFilter($query, $userId);
             }])
             ->get();
+    }
+
+    /**
+     * Apply recursive task querying to get in the tree auth user's tasks only
+     * @param HasMany $query
+     * @param int $userId
+     * @return void
+     */
+    private function applyUserFilter(HasMany $query, int $userId): void
+    {
+        $query->where('user_id', $userId)
+            ->with(['children' => function ($query) use ($userId) {
+                $this->applyUserFilter($query, $userId);
+            }]);
     }
 
     /**
