@@ -166,7 +166,7 @@ class TaskFeatureTest extends TestCase
 
     public function testCannotMarkTaskAsDoneWithUncompletedSubtasks()
     {
-        $task = Task::factory()->create(['status' => 'todo']);
+        $task = Task::factory()->create(['status' => 'todo', 'completed_at' => null]);
         $subtask = Task::factory()->create(['parent_id' => $task->id, 'status' => 'todo']);
 
         $response = $this->patchJson("/api/tasks/done/{$task->id}");
