@@ -31,7 +31,7 @@ class TaskFactory extends Factory
             'title' => $this->faker->realText(100, 3),
             'description' => $this->faker->realText(1000, 3),
             'created_at' => $this->faker->dateTimeBetween('-5 months', '-2 weeks'),
-            'completed_at' => $status->value === 'done' ? $this->faker->dateTimeBetween('-2 weeks', '-1 day') : null,
+            'completed_at' => $status->value === 'done' ? $this->faker->dateTimeBetween('-1 weeks', '-1 day') : null,
         ];
     }
 }
