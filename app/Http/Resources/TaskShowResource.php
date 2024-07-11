@@ -18,9 +18,10 @@ class TaskShowResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'parent_id' => $this->parent_id,
+            'user_id' => $this->user_id,
             'title' => $this->title,
             'description' => $this->description,
-            'parent_id' => $this->parent_id,
             'status' => $this->status,
             'priority' => $this->priority,
             'created_at' => $this->created_at,
