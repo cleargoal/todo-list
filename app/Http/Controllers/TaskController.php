@@ -83,7 +83,7 @@ class TaskController extends Controller
      */
     public function getUserTaskTree(Task $task): JsonResponse
     {
-        return response()->json($this->service->getTaskTree($task->id));
+        return response()->json($this->service->getTaskTree(request()->user()->id, $task->id));
     }
 
     /**

@@ -70,12 +70,18 @@ class TaskRepository
 
     /**
      * Get tree structure of specified task
-     * @param $taskId
+     * @param int $taskId
+     * @param int $userId
      * @return mixed
      */
-    public function getTree($taskId): mixed
+    public function getTree(int $taskId, int $userId): mixed
     {
-        return Task::where('id', $taskId)->with('children')->get();
+        return Task::where('id', $taskId)
+            ->where('user_id', $userId)
+            ->with(['children' => function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            }])
+            ->get();
     }
 
     /**
@@ -83,7 +89,7 @@ class TaskRepository
      * @param $taskId
      * @return mixed
      */
-    public function getDescendants($taskId): mixed
+    public function getDescendants(int $taskId): mixed
     {
         return Task::where('parent_id', $taskId)->with('children')->get();
     }

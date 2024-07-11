@@ -73,12 +73,13 @@ readonly class TaskService
 
     /**
      * Build tasks Tree
+     * @param int $userId
      * @param int|null $taskId
      * @return array|Collection
      */
-    public function getTaskTree(int $taskId = null): array|Collection
+    public function getTaskTree(int $userId, int $taskId = null): array|Collection
     {
-        $taskWithChildren = $this->repository->getTree($taskId);
+        $taskWithChildren = $this->repository->getTree($taskId, $userId);
         return $this->buildTree($taskWithChildren);
     }
 
