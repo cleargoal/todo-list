@@ -7,6 +7,7 @@ use App\Enums\StatusEnum;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
@@ -187,9 +188,86 @@ class TaskFeatureTest extends TestCase
         $this->assertNotEquals('Updated Task Title', Task::find($task->id)->title);
     }
 
-    public function testUserGetInTreeOwnTasks()
+    public function testUserGetOwnTasksInTree()
     {
-        $task = Task::factory()->create(['parent_id' => null]);
+        // Create a root task for the authenticated user
+        $rootTask = Task::factory()->create([
+            'user_id' => $this->user->id,
+            'title' => 'Root Task'
+        ]);
 
+        // Create children tasks for the root task
+        $childTask1 = Task::factory()->create([
+            'user_id' => $this->user->id,
+            'parent_id' => $rootTask->id,
+            'title' => 'Child Task 1'
+        ]);
+
+        $childTask2 = Task::factory()->create([
+            'user_id' => $this->user->id,
+            'parent_id' => $rootTask->id,
+            'title' => 'Child Task 2'
+        ]);
+
+        // Create a grandchild task for one of the children
+        $grandChildTask = Task::factory()->create([
+            'user_id' => $this->user->id,
+            'parent_id' => $childTask1->id,
+            'title' => 'Grandchild Task'
+        ]);
+
+        // Request the task tree starting from the root task
+        $response = $this->getJson("/api/tasks/tree/{$rootTask->id}");
+
+        // Assert the response structure and data
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                [
+                    'id',
+                    'title',
+                    'children' => [
+                        [
+                            'id',
+                            'title',
+                            'children' => [
+                                [
+                                    'id',
+                                    'title',
+                                    'children'
+                                ]
+                            ]
+                        ],
+                        [
+                            'id',
+                            'title',
+                            'children'
+                        ]
+                    ]
+                ]
+            ])
+            ->assertJson([
+                [
+                    'id' => $rootTask->id,
+                    'title' => 'Root Task',
+                    'children' => [
+                        [
+                            'id' => $childTask1->id,
+                            'title' => 'Child Task 1',
+                            'children' => [
+                                [
+                                    'id' => $grandChildTask->id,
+                                    'title' => 'Grandchild Task',
+                                    'children' => []
+                                ]
+                            ]
+                        ],
+                        [
+                            'id' => $childTask2->id,
+                            'title' => 'Child Task 2',
+                            'children' => []
+                        ]
+                    ]
+                ]
+            ]);
     }
 }
