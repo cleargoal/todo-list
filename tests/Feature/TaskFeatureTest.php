@@ -58,9 +58,9 @@ class TaskFeatureTest extends TestCase
     public function testUserCanGetFilteredTasks()
     {
         // Create tasks with different statuses for both users
-        Task::factory()->count(3)->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->count(3)->create(['user_id' => $this->user->id, ]);
         Task::factory()->count(2)->create(['user_id' => $this->user->id, 'status' => StatusEnum::DONE]);
-        Task::factory()->count(1)->create(['user_id' => $this->otherUser->id, 'status' => StatusEnum::TODO]);
+        Task::factory()->count(1)->create(['user_id' => $this->otherUser->id, ]);
 
         $response = $this->getJson('/api/tasks/filtered?status=todo');
 
@@ -111,7 +111,7 @@ class TaskFeatureTest extends TestCase
 
     public function testUserCanDeleteOwnTask()
     {
-        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        $task = Task::factory()->create(['user_id' => $this->user->id, ]);
         Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->deleteJson('/api/tasks/' . $task->id);
@@ -124,8 +124,8 @@ class TaskFeatureTest extends TestCase
 
     public function testUserCannotDeleteOthersTask()
     {
-        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
-        $otherTask = Task::factory()->create(['user_id' => $this->otherUser->id, 'status' => StatusEnum::TODO]);
+        $task = Task::factory()->create(['user_id' => $this->user->id, ]);
+        $otherTask = Task::factory()->create(['user_id' => $this->otherUser->id, ]);
 
         $response = $this->deleteJson('/api/tasks/' . $otherTask->id);
 
@@ -151,7 +151,7 @@ class TaskFeatureTest extends TestCase
 
     public function testUserCanMarkOwnTaskAsDone()
     {
-        $task = Task::factory()->create(['user_id' => $this->user->id, 'status' => StatusEnum::TODO]);
+        $task = Task::factory()->create(['user_id' => $this->user->id, ]);
         Task::factory()->create(['user_id' => $this->otherUser->id]);
 
         $response = $this->patchJson('/api/tasks/done/' . $task->id);
@@ -166,7 +166,7 @@ class TaskFeatureTest extends TestCase
 
     public function testCannotMarkTaskAsDoneWithUncompletedSubtasks()
     {
-        $task = Task::factory()->create(['status' => 'todo', 'completed_at' => null]);
+        $task = Task::factory()->create(['status' => 'todo', ]);
         $subtask = Task::factory()->create(['parent_id' => $task->id, 'status' => 'todo']);
 
         $response = $this->patchJson("/api/tasks/done/{$task->id}");
@@ -185,5 +185,11 @@ class TaskFeatureTest extends TestCase
 
         $response->assertStatus(403);
         $this->assertNotEquals('Updated Task Title', Task::find($task->id)->title);
+    }
+
+    public function testUserGetInTreeOwnTasks()
+    {
+        $task = Task::factory()->create(['parent_id' => null]);
+
     }
 }
