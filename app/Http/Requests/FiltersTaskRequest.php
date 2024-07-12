@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Http\Requests;
 
+use App\Dto\TaskFiltersDto;
 use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -40,4 +41,15 @@ class FiltersTaskRequest extends FormRequest
             'status' => $this->bodystatus,
         ]);
     }
+
+    public function toDto(): TaskFiltersDto
+    {
+        return new TaskFiltersDto(
+            $this->input('title'),
+            $this->input('description'),
+            PriorityEnum::from($this->input('priority')) ?? PriorityEnum::LOW->value,
+            StatusEnum::from($this->input('status') ?? StatusEnum::TODO->value),
+        );
+    }
+
 }
