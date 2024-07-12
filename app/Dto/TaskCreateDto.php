@@ -17,18 +17,19 @@ class TaskCreateDto
     public PriorityEnum $priority;
 
     public function __construct(
-        int $userId,
-        ?int $parentId = null,
-        string $title,
-        string $description,
-        StatusEnum $status = StatusEnum::TODO,
-        PriorityEnum $priority = PriorityEnum::LOW
-    ) {
+        int          $userId,
+        string       $title,
+        string       $description,
+        StatusEnum   $status = StatusEnum::TODO,
+        PriorityEnum $priority = PriorityEnum::LOW,
+        ?int         $parentId = null,
+    )
+    {
         $this->userId = $userId;
-        $this->parentId = $parentId;
         $this->title = $title;
         $this->description = $description;
         $this->status = $status;
         $this->priority = $priority;
+        $this->parentId = $parentId;
     }
 }

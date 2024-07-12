@@ -9,21 +9,22 @@ use App\Enums\StatusEnum;
 
 readonly class TaskFiltersDto
 {
-    public function __construct(
-        public ?string       $title,
-        public ?string       $description,
-        public ?PriorityEnum $priority,
-        public ?StatusEnum $status,
-    ) {
-    }
 
-    public static function fromArray(array $data): TaskFiltersDto
+    public string $title;
+    public string $description;
+    public PriorityEnum $priority;
+    public StatusEnum $status;
+
+    public function __construct(
+        string       $title,
+        string       $description,
+        PriorityEnum $priority = PriorityEnum::LOW,
+        StatusEnum   $status = StatusEnum::TODO,
+    )
     {
-        return new self(
-            title: $data['title'],
-            description: $data['description'],
-            priority: $data['priority'],
-            status: $data['status'],
-        );
+        $this->title = $title;
+        $this->description = $description;
+        $this->priority = $priority;
+        $this->status = $status;
     }
 }
