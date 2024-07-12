@@ -36,8 +36,8 @@ class TaskFeatureTest extends TestCase
         $response->assertStatus(201);
         $this->assertDatabaseHas('tasks', [
             'user_id' => $this->user->id,
-            'title' => 'Test Task',
-            'description' => 'Test Description',
+            'title' => $taskData['title'],
+            'description' => $taskData['description'],
             'status' => StatusEnum::TODO->value, // Default status
             'priority' => PriorityEnum::LOW->value // Default priority
         ]);
@@ -104,8 +104,8 @@ class TaskFeatureTest extends TestCase
         $response->assertStatus(200);
         $this->assertDatabaseHas('tasks', [
             'id' => $task->id,
-            'title' => 'Updated Task Title',
-            'description' => 'Updated Task Description'
+            'title' => $updateData['title'],
+            'description' => $updateData['description'],
         ]);
     }
 
@@ -248,22 +248,22 @@ class TaskFeatureTest extends TestCase
             ->assertJson([
                 [
                     'id' => $rootTask->id,
-                    'title' => 'Root Task',
+                    'title' => $rootTask['title'],
                     'children' => [
                         [
                             'id' => $childTask1->id,
-                            'title' => 'Child Task 1',
+                            'title' => $childTask1['title'],
                             'children' => [
                                 [
                                     'id' => $grandChildTask->id,
-                                    'title' => 'Grandchild Task',
+                                    'title' => $grandChildTask['title'],
                                     'children' => []
                                 ]
                             ]
                         ],
                         [
                             'id' => $childTask2->id,
-                            'title' => 'Child Task 2',
+                            'title' => $childTask2['title'],
                             'children' => []
                         ]
                     ]
