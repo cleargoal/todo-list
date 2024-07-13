@@ -9,7 +9,6 @@ use App\Enums\PriorityEnum;
 use App\Enums\StatusEnum;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class StoreTaskRequest extends FormRequest
