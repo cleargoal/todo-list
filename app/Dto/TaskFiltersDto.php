@@ -10,16 +10,16 @@ use App\Enums\StatusEnum;
 readonly class TaskFiltersDto
 {
 
-    public string $title;
-    public string $description;
-    public PriorityEnum $priority;
-    public StatusEnum $status;
+    public ?string $title;
+    public ?string $description;
+    public ?PriorityEnum $priority;
+    public ?StatusEnum $status;
 
     public function __construct(
-        string       $title,
-        string       $description,
-        PriorityEnum $priority = PriorityEnum::LOW,
-        StatusEnum   $status = StatusEnum::TODO,
+        ?string       $title,
+        ?string       $description,
+        ?PriorityEnum $priority = PriorityEnum::LOW,
+        ?StatusEnum   $status = StatusEnum::TODO,
     )
     {
         $this->title = $title;
