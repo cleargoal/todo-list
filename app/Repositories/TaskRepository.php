@@ -50,11 +50,12 @@ class TaskRepository
     public function update(Task $model, TaskUpdateDto $data): Task
     {
         $model->update([
-            $model->parent_id = $data->parent_id ?? $model->parent_id,
-            $model->title = $data->title ?? $model->title,
-            $model->description = $data->description ?? $model->description,
-            $model->priority = $data->priority ?? $model->priority,
+            'parent_id' => $data->parent_id ?? $model->parent_id,
+            'title' => $data->title ?? $model->title,
+            'description' => $data->description ?? $model->description,
+            'priority' => $data->priority ?? $model->priority,
         ]);
+
         return $model;
     }
 
@@ -100,7 +101,7 @@ class TaskRepository
 
     /**
      * Get tree structure of specified task without root (parent)
-     * @param $taskId
+     * @param int $taskId
      * @return mixed
      */
     public function getDescendants(int $taskId): mixed
@@ -116,8 +117,8 @@ class TaskRepository
     public function setTaskStatusDone(Task $task): ?Task
     {
         $task->update([
-            $task->status = StatusEnum::DONE,
-            $task->completed_at = Carbon::now(),
+            'status' => StatusEnum::DONE,
+            'completed_at' => Carbon::now(),
         ]);
         return $task;
     }
