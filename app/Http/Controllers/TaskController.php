@@ -3,14 +3,10 @@ declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
-use App\Dto\TaskCreateDto;
-use App\Dto\TaskFiltersDto;
-use App\Dto\TaskUpdateDto;
-use App\Enums\PriorityEnum;
-use App\Enums\StatusEnum;
 use App\Exceptions\TaskAlreadyDoneException;
 use App\Exceptions\TaskDeletionException;
 use App\Exceptions\TaskHasUncompletedChildrenException;
+use App\Http\Requests\FiltersTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskIndexResource;
@@ -20,7 +16,6 @@ use App\Services\TaskService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Validation\Rule;
 use OpenApi\Annotations as OA;
 
 
@@ -93,17 +88,7 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request): TaskShowResource
     {
-        $validated = $request->validated();
-
-        $taskDto = new TaskCreateDto(
-            $request->user()->id,
-            $validated['parent_id'] ?? null,
-            $validated['title'],
-            $validated['description'],
-            StatusEnum::from($validated['status'] ?? StatusEnum::TODO->value),
-            PriorityEnum::from($validated['priority'] ?? PriorityEnum::LOW->value),
-        );
-        return new TaskShowResource($this->service->create($taskDto));
+        return new TaskShowResource($this->service->create($request->toDto()));
     }
 
     /**
@@ -124,16 +109,7 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task): JsonResponse|TaskShowResource
     {
-        $validated = $request->validated();
-
-        $taskDto = new TaskUpdateDto(
-            $validated['parent_id'] ?? null,
-            $validated['title'] ?? null,
-            $validated['description'] ?? null,
-            $priority = isset($validated['priority']) ? PriorityEnum::from($validated['priority']) : null,
-        );
-
-        return new TaskShowResource($this->service->update($task, $taskDto));
+        return new TaskShowResource($this->service->update($task, $request->toDto()));
     }
 
     /**
@@ -169,23 +145,9 @@ class TaskController extends Controller
      * @queryParam status string Filter the tasks by status. Example: todo
      * @return AnonymousResourceCollection
      */
-    public function getFilteredCollection(Request $request): AnonymousResourceCollection
+    public function getFilteredCollection(FiltersTaskRequest $request): AnonymousResourceCollection
     {
-        // Query parameters
-        $request->validate([
-            'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,status',
-            'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,status',
-            'priority' => ['sometimes', 'nullable', 'int', Rule::enum(PriorityEnum::class), 'required_without_all:title,description,status'],
-            'status' => ['sometimes', 'nullable', Rule::enum(StatusEnum::class), 'required_without_all:title,description,priority'],
-        ]);
-
-        $filtersDto = new TaskFiltersDto(
-            $request->query('title') ?? null,
-            $request->query('description') ?? null,
-                $request->query('priority') ? PriorityEnum::from($request->query('priority')) : null,
-                $request->query('status') ? StatusEnum::from($request->query('status')) : null,
-        );
-        return TaskIndexResource::collection($this->service->getFiltered($request->user()->id, $filtersDto));
+        return TaskIndexResource::collection($this->service->getFiltered($request->user()->id, $request->toDto()));
     }
 
     /**
