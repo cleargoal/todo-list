@@ -25,9 +25,9 @@ readonly class TaskService
      * All user's tasks
      *
      * @param int $userId
-     * @return mixed
+     * @return Collection|null
      */
-    public function getTasksByUserId(int $userId): mixed
+    public function getTasksByUserId(int $userId): Collection|null
     {
         return $this->repository->getTasksByUserId($userId);
     }
@@ -88,7 +88,7 @@ readonly class TaskService
      * @param $tasks
      * @return mixed
      */
-    protected function buildTree($tasks): mixed
+    private function buildTree($tasks): mixed
     {
         foreach ($tasks as $task) {
             $task->children = $task->children->isNotEmpty() ? $this->buildTree($task->children) : [];
@@ -126,7 +126,7 @@ readonly class TaskService
      * @param bool $check
      * @return bool
      */
-    protected function checkChildren(Collection $children, StatusEnum $status, bool &$check = false): bool
+    private function checkChildren(Collection $children, StatusEnum $status, bool &$check = false): bool
     {
         foreach ($children as $child) {
             if ($child->status === $status) {
