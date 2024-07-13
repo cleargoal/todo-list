@@ -28,20 +28,6 @@ class FiltersTaskRequest extends FormRequest
         ];
     }
 
-    /**
-     * Prepare for validation
-     * @return void
-     */
-//    protected function prepareForValidation(): void
-//    {
-//        $this->merge([
-//            'title' => $this->bodytitle,
-//            'description' => $this->bodydescription,
-//            'priority' => $this->bodypriority,
-//            'status' => $this->bodystatus,
-//        ]);
-//    }
-
     public function toDto(): TaskFiltersDto
     {
         return new TaskFiltersDto(
