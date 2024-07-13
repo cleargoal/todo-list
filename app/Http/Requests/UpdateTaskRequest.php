@@ -33,7 +33,7 @@ class UpdateTaskRequest extends FormRequest
             $this->input('parent_id'),
             $this->input('title'),
             $this->input('description'),
-            /*$this->has('priority') ? */PriorityEnum::from($this->input('priority')),
+            PriorityEnum::tryFrom($this->input('priority') ?? '0'),
         );
     }
 }

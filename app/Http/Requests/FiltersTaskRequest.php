@@ -24,7 +24,7 @@ class FiltersTaskRequest extends FormRequest
             'title' => 'sometimes|nullable|string|max:255|required_without_all:priority,description,status',
             'description' => 'sometimes|nullable|string|max:10000|required_without_all:priority,title,status',
             'priority' => [Rule::enum(PriorityEnum::class), 'sometimes', 'nullable', 'int', 'required_without_all:title,description,status'],
-            'status' => [Rule::enum(StatusEnum::class), 'sometimes', 'nullable', 'required_without_all:title,description,status'],
+            'status' => [Rule::enum(StatusEnum::class), 'sometimes', 'nullable', 'required_without_all:title,description,priority'],
         ];
     }
 
@@ -32,23 +32,23 @@ class FiltersTaskRequest extends FormRequest
      * Prepare for validation
      * @return void
      */
-    protected function prepareForValidation(): void
-    {
-        $this->merge([
-            'title' => $this->bodytitle,
-            'description' => $this->bodydescription,
-            'priority' => $this->bodypriority,
-            'status' => $this->bodystatus,
-        ]);
-    }
+//    protected function prepareForValidation(): void
+//    {
+//        $this->merge([
+//            'title' => $this->bodytitle,
+//            'description' => $this->bodydescription,
+//            'priority' => $this->bodypriority,
+//            'status' => $this->bodystatus,
+//        ]);
+//    }
 
     public function toDto(): TaskFiltersDto
     {
         return new TaskFiltersDto(
             $this->input('title'),
             $this->input('description'),
-            PriorityEnum::from($this->input('priority')) ?? PriorityEnum::LOW->value,
-            StatusEnum::from($this->input('status') ?? StatusEnum::TODO->value),
+            PriorityEnum::tryFrom($this->input('priority') ?? '0'),
+            StatusEnum::tryFrom($this->input('status') ?? '0'),
         );
     }
 
