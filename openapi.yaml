@@ -1,893 +1,358 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Tasks Management - OpenAPI 3.0
-  description: |-
-    This is a sample Tasks Management Service based on the OpenAPI 3.0 specification.  
-  version: 1.0.01
-tags:
-  - name: task
-    description: Try create your tasks
-  - name: management
-    description: Access to managing tasks
-  - name: user
-    description: Operations about user
-paths:
-  /tasks:
-    put:
-      tags:
-        - task
-      summary: Update an existing task
-      description: Update an existing task by Id
-      operationId: updateTask
-      requestBody:
-        description: Update an existent task in the app
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Task'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Task'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Task'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Task'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Task'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Task not found
-        '422':
-          description: Validation exception
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
-    post:
-      tags:
-        - task
-      summary: Add a new Task to the store
-      description: Add a new Task to the store
-      operationId: addTask
-      requestBody:
-        description: Create a new Task in the store
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Task'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Task'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Task'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Task'          
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Task'
-        '400':
-          description: Invalid input
-        '422':
-          description: Validation exception
-      security:
-        - petstore_auth:
-            - write:pets
-            - read:pets
+  title: Task Manager API
+  version: 1.0.0
+  description: API documentation for the Task Manager application
+
+servers:
+  - url: http://localhost:8008/api
+    description: Local development server
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+
   schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        email_verified_at:
+          type: string
+          format: date-time
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
     Task:
       type: object
       properties:
         id:
           type: integer
-          format: int64
-          example: 10
-        petId:
+        user_id:
           type: integer
-          format: int64
-          example: 198772
-        quantity:
+        parent_id:
           type: integer
-          format: int32
-          example: 7
-        shipDate:
-          type: string
-          format: date-time
         status:
           type: string
-          description: Task Status
-          example: approved
-          enum:
-            - placed
-            - approved
-            - delivered
-        complete:
-          type: boolean
-      xml:
-        name: task
+          enum: [todo, done]
+        priority:
+          type: string
+          enum: [low, midlow, mid, midhigh, high]
+        title:
+          type: string
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+        completed_at:
+          type: string
+          format: date-time
 
+paths:
+  /register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        201:
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Bad request
 
-  #   httpMethods:
-  #     - POST
-  #   uri: api/register
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Register a new user.'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters:
-  #     name:
-  #       name: name
-  #       description: 'Must not be greater than 255 characters.'
-  #       required: true
-  #       example: sgpyiqo
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     email:
-  #       name: email
-  #       description: 'Must be a valid email address. Must not be greater than 255 characters.'
-  #       required: true
-  #       example: estella78@example.com
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     password:
-  #       name: password
-  #       description: 'Must be at least 8 characters.'
-  #       required: true
-  #       example: "&:Ajy.eb'SS3'N6/|.O:"
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanBodyParameters:
-  #     name: sgpyiqo
-  #     email: estella78@example.com
-  #     password: "&:Ajy.eb'SS3'N6/|.O:"
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer gh4dkf35Z6b6cPV1ev8aaED'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - POST
-  #   uri: api/login
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Login user and create token.'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters:
-  #     email:
-  #       name: email
-  #       description: 'Must be a valid email address.'
-  #       required: true
-  #       example: mcdermott.alexandre@example.org
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     password:
-  #       name: password
-  #       description: ''
-  #       required: true
-  #       example: 'OX2K{]4lMR/'
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanBodyParameters:
-  #     email: mcdermott.alexandre@example.org
-  #     password: 'OX2K{]4lMR/'
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 8vh13Eafdeab4gckZ5DV6P6'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - POST
-  #   uri: api/logout
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Logout user (revoke the token).'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 3Zea5k6V4Dg16habEfPcv8d'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: api/auth-user
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Get current auth user details.'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 6v85PhEf4DcdV3ba1ekgZa6'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: api/tasks
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Display a listing of the tasks'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer eZhVEgP68bv3dacD5fa14k6'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: 'api/tasks/tree/{task_id}'
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: "Get the tree of one of user's task by ID"
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters:
-  #     task_id:
-  #       name: task_id
-  #       description: 'The ID of the task.'
-  #       required: true
-  #       example: 1
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanUrlParameters:
-  #     task_id: 1
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 4caade5DZbfv6hEgkP6V381'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: api/tasks/filtered
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Get tasks collection by filters'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters:
-  #     title:
-  #       name: title
-  #       description: 'Filter the tasks by a specific part of the title.'
-  #       required: false
-  #       example: something
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #     description:
-  #       name: description
-  #       description: 'Filter the tasks by a specific part of the description.'
-  #       required: false
-  #       example: good
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #     priority:
-  #       name: priority
-  #       description: 'Filter the tasks by a priority.'
-  #       required: false
-  #       example: 4
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #     status:
-  #       name: status
-  #       description: 'Filter the tasks by status.'
-  #       required: false
-  #       example: todo
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #   cleanQueryParameters:
-  #     title: something
-  #     description: good
-  #     priority: 4
-  #     status: todo
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 1efhvV45dZc8Dba3E66agPk'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: api/tasks/sorted
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Sorting tasks'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters:
-  #     priority:
-  #       name: priority
-  #       description: 'Sorting the tasks by priority.'
-  #       required: false
-  #       example: desc
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #     created_at:
-  #       name: created_at
-  #       description: 'Sorting the tasks by a created_at.'
-  #       required: false
-  #       example: asc
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #     completed_at:
-  #       name: completed_at
-  #       description: 'Sorting the tasks by a completed_at.'
-  #       required: false
-  #       example: asc
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: true
-  #       custom: []
-  #   cleanQueryParameters:
-  #     priority: desc
-  #     created_at: asc
-  #     completed_at: asc
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer ak16ZV68DdE35vh4agPbcef'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - GET
-  #   uri: 'api/tasks/{task_id}'
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Display the specified Task'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters:
-  #     task_id:
-  #       name: task_id
-  #       description: 'The ID of the task.'
-  #       required: true
-  #       example: 1
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanUrlParameters:
-  #     task_id: 1
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses:
-  #     -
-  #       status: 401
-  #       content: '{"message":"Unauthenticated."}'
-  #       headers:
-  #         cache-control: 'no-cache, private'
-  #         content-type: application/json
-  #         access-control-allow-origin: '*'
-  #       description: null
-  #       custom: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer f4vZcP36ad61gahb58eEkVD'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - POST
-  #   uri: api/tasks
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Store a newly created Task in DB'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters: []
-  #   cleanUrlParameters: []
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters:
-  #     status:
-  #       name: status
-  #       description: ''
-  #       required: false
-  #       example: todo
-  #       type: string
-  #       enumValues:
-  #         - todo
-  #         - done
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     priority:
-  #       name: priority
-  #       description: ''
-  #       required: false
-  #       example: '3'
-  #       type: string
-  #       enumValues:
-  #         - '1'
-  #         - '2'
-  #         - '3'
-  #         - '4'
-  #         - '5'
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     parent_id:
-  #       name: parent_id
-  #       description: 'Must be at least 0.'
-  #       required: false
-  #       example: 80
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     title:
-  #       name: title
-  #       description: 'Must not be greater than 255 characters.'
-  #       required: true
-  #       example: stkwpftxuaywp
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     description:
-  #       name: description
-  #       description: 'Must not be greater than 10000 characters.'
-  #       required: true
-  #       example: 'Perferendis omnis illum harum ad recusandae.'
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanBodyParameters:
-  #     status: todo
-  #     priority: '3'
-  #     parent_id: 80
-  #     title: stkwpftxuaywp
-  #     description: 'Perferendis omnis illum harum ad recusandae.'
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer he1Z46dg8aDavVEc5P3f6bk'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - PATCH
-  #   uri: 'api/tasks/{task_id}'
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Update the specified Task in DB'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters:
-  #     task_id:
-  #       name: task_id
-  #       description: 'The ID of the task.'
-  #       required: true
-  #       example: 1
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanUrlParameters:
-  #     task_id: 1
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters:
-  #     parent_id:
-  #       name: parent_id
-  #       description: 'This field is required when none of <code>priority</code>, <code>description</code>, and <code>title</code> are present.'
-  #       required: false
-  #       example: 3
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     title:
-  #       name: title
-  #       description: 'This field is required when none of <code>priority</code>, <code>description</code>, and <code>parent_id</code> are present. Must not be greater than 255 characters.'
-  #       required: false
-  #       example: lzzjy
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     description:
-  #       name: description
-  #       description: 'This field is required when none of <code>priority</code>, <code>title</code>, and <code>parent_id</code> are present. Must not be greater than 10000 characters.'
-  #       required: false
-  #       example: 'Ipsa minus aut optio quia voluptas vel.'
-  #       type: string
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #     priority:
-  #       name: priority
-  #       description: 'This field is required when none of <code>title</code>, <code>description</code>, and <code>parent_id</code> are present.'
-  #       required: false
-  #       example: '1'
-  #       type: string
-  #       enumValues:
-  #         - '1'
-  #         - '2'
-  #         - '3'
-  #         - '4'
-  #         - '5'
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanBodyParameters:
-  #     parent_id: 3
-  #     title: lzzjy
-  #     description: 'Ipsa minus aut optio quia voluptas vel.'
-  #     priority: '1'
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer kEfP6cbga54Dha163Zde8Vv'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - DELETE
-  #   uri: 'api/tasks/{task_id}'
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: 'Remove the specified Task from DB'
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters:
-  #     task_id:
-  #       name: task_id
-  #       description: 'The ID of the task.'
-  #       required: true
-  #       example: 1
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanUrlParameters:
-  #     task_id: 1
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 1Pg4ZE63a5vkcDdhabf68Ve'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
-  # -
-  #   httpMethods:
-  #     - PATCH
-  #   uri: 'api/tasks/done/{task_id}'
-  #   metadata:
-  #     groupName: Endpoints
-  #     groupDescription: ''
-  #     subgroup: ''
-  #     subgroupDescription: ''
-  #     title: "Mark Task as 'done'"
-  #     description: ''
-  #     authenticated: true
-  #     custom: []
-  #   headers:
-  #     Authorization: 'Bearer {YOUR_AUTH_KEY}'
-  #     Content-Type: application/json
-  #     Accept: application/json
-  #   urlParameters:
-  #     task_id:
-  #       name: task_id
-  #       description: 'The ID of the task.'
-  #       required: true
-  #       example: 1
-  #       type: integer
-  #       enumValues: []
-  #       exampleWasSpecified: false
-  #       custom: []
-  #   cleanUrlParameters:
-  #     task_id: 1
-  #   queryParameters: []
-  #   cleanQueryParameters: []
-  #   bodyParameters: []
-  #   cleanBodyParameters: []
-  #   fileParameters: []
-  #   responses: []
-  #   responseFields: []
-  #   auth:
-  #     - headers
-  #     - Authorization
-  #     - 'Bearer 4b8Vdcvah31DZfPE6ega65k'
-  #   controller: null
-  #   method: null
-  #   route: null
-  #   custom: []
+  /login:
+    post:
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        200:
+          description: User logged in successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        401:
+          description: Unauthorized
+
+  /logout:
+    post:
+      summary: Logout the authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: User logged out successfully
+        401:
+          description: Unauthorized
+
+  /auth-user:
+    get:
+      summary: Get authenticated user details
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Authenticated user details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: Unauthorized
+
+  /tasks:
+    get:
+      summary: Get a list of tasks for the authenticated user
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: List of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        401:
+          description: Unauthorized
+
+    post:
+      summary: Create a new task
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        201:
+          description: Task created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+
+  /tasks/filtered:
+    get:
+      summary: Get a filtered list of tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: status
+          schema:
+            type: string
+            enum: [pending, completed]
+          description: Filter tasks by status
+        - in: query
+          name: priority
+          schema:
+            type: string
+            enum: [low, midlow, mid, midhigh, high]
+          description: Filter tasks by priority
+      responses:
+        200:
+          description: Filtered list of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        401:
+          description: Unauthorized
+
+  /tasks/sorted:
+    get:
+      summary: Get a sorted list of tasks
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: priority
+          schema:
+            type: string
+            enum: [asc, desc]
+          description: Sort tasks by priority
+      responses:
+        200:
+          description: Sorted list of tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        401:
+          description: Unauthorized
+
+  /tasks/{task}:
+    get:
+      summary: Get task details
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: task
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Task details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+
+    patch:
+      summary: Update a task
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: task
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        200:
+          description: Task updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+
+    delete:
+      summary: Delete a task
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: task
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Task deleted successfully
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+
+  /tasks/done/{task}:
+    patch:
+      summary: Mark a task as done
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: task
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Task marked as done successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
+
+  /tasks/tree/{task}:
+    get:
+      summary: Get task tree for a specific task
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: task
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Task tree details
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
+        401:
+          description: Unauthorized
+        403:
+          description: Forbidden
