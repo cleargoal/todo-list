@@ -23,20 +23,23 @@
 
 
 ## Using API documentation
-1. 'Scribe' package have been used for creating API documentation.
-2. If needed, you can regenerate it by running command `sail artisan scribe:generate`
-3. Documentation is at the URL http://localhost:8008/docs, or on other port if you have tuned it.
-4. First, you need to authorize user by picking 'Login user and create token' point.
-5. Then, click 'Try it out' button
-6. In the fields below enter email and password:
+1. The documentation described by '**openapi.yaml**' file you can find in project's root directory.
+2. To see it just open that file by PhpStorm in the 'Preview' mode. 
+3. Also, you can use [OpenAPI editor](https://editor.swagger.io/) by Swagger.
+4. In this case, you must open a local 'openapi.yaml' file in Swagger Editor. Then you can make requests to API endpoints.
+5. First, you need to authorize user by picking 'Login user and create token' point.
+6. Then, click 'Try it out' button
+7. In the fields below enter email and password:
    1. You can use `start-user@mail.org` or email from DB table 'users';
-   2. The Password of any user is '**password**' for simple testing.
+   2. The password of any user seeded at installation step is '**password**' for simple testing.
    3. Remember, that the access token is valid for **60 minutes**. After that, you need to authenticate anew.
-   4. If you feel that you have too many access tokens, you can prune the table by running the command `sail artisan sanctum:prune-expired --hours=24` that removes all old (expired) tokens.
-7. When logged in, you'll see the Bearer token in the right panel. Use this one for authorizing any other endpoints.
-8. For example, you want to see some 'task'. Click 'Display the specified resource' and fill fields:
-   1. <u>Authorization</u> in format 'Bearer ' + token taken from previous point. 
-   2. Don't touch other headers
-   3. Enter <u>ID</u> you want.
-9. Then hit the green button 'Send request'. See the result in the right panel.
-10. Filtering and sorting are realized by separate end-points. These queries select data of authenticated user tasks only. 
+   4. If you feel that after numerous queries you have too many access tokens, you can prune the table by running the command `sail artisan sanctum:prune-expired --hours=24` 
+      that removes all old (expired) tokens.
+8. When logged in, you'll see the Bearer token in the 'Response body' below. Use this one for authorizing any other endpoints.
+9. The authorization of all endpoints should be done like this: 
+   1. Copy authorization token from 'login' response body, something like this 6|hNK6Tr3n8DVuBm8eKFcew6iVBSYvRqJUD81LKe5f63fb4e54 - without quotes.
+   2. At the top of page hit the green button 'Authorize'.
+   3. Paste the copied token in the opened pop-up . That's enough.
+10. For example, you want to see some 'task'. Open tab 'Get task details' and hit 'Try it out' button, then fill the field <u>ID</u> with ID you want.
+11. Then hit the blue button 'Execute'. See the result in the Response body field below.
+12. Filtering and sorting are realized by separate end-points. These queries select data of authenticated user tasks only. 
